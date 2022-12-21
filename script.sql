@@ -139,20 +139,20 @@ insert into miTiendaSpringColasChisela.FLOWER (code, name, description, price, c
 -- AUTO INCREMENT FOR FLOWER CODE
 ALTER TABLE miTiendaSpringColasChisela.FLOWER MODIFY code INT AUTO_INCREMENT, AUTO_INCREMENT=101;
 
-create table USERS (
+create table users (
 	username VARCHAR(50),
 	password VARCHAR(32) NOT NULL, -- TAMAÑO 32 PARA LA ENCRIPTACIÓN MD5
 	name VARCHAR(50) NOT NULL,
 	email VARCHAR(50),
 	admin VARCHAR(50),
-    CONSTRAINT PK_USERS PRIMARY KEY (username)
+    CONSTRAINT PK_users PRIMARY KEY (username)
 ); 
 
--- INSERT USERS TABLE 
-insert into USERS (username, password, name, email, admin) values ('ioliasa', md5('ioliasa'), 'Inmaculada Olias', 'ioliasa@gmail.com', true); -- 1 admin 0 no admin se guardará
-insert into USERS (username, password, name, email, admin) values ('user_inma', md5('userinma'), 'Inma Olias', 'ioliasa@gmail.com', false);
-insert into USERS (username, password, name, email, admin) values ('chisela', md5('chisela'), 'Chisela Colás', 'chisela14@gmail.com', true);
-insert into USERS (username, password, name, email, admin) values ('user_chisela', md5('userchise'), 'Chisela Colás', 'chisela14@gmail.com', false);
+-- INSERT users TABLE 
+insert into users (username, password, name, email, admin) values ('ioliasa', md5('ioliasa'), 'Inmaculada Olias', 'ioliasa@gmail.com', true); -- 1 admin 0 no admin se guardará
+insert into users (username, password, name, email, admin) values ('user_inma', md5('userinma'), 'Inma Olias', 'ioliasa@gmail.com', false);
+insert into users (username, password, name, email, admin) values ('chisela', md5('chisela'), 'Chisela Colás', 'chisela14@gmail.com', true);
+insert into users (username, password, name, email, admin) values ('user_chisela', md5('userchise'), 'Chisela Colás', 'chisela14@gmail.com', false);
 
 
 create table ORDERS (

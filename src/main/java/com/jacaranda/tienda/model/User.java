@@ -8,7 +8,8 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name="USERS")
+@Table(name="users")//he tenido que ponerlo en minúsculas aquí y en la bd porque algo
+//lo pasa a minúsculas y daba error de no encontrado
 public class User {
 	@Id
 	private String username;
