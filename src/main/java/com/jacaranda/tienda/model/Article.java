@@ -1,17 +1,21 @@
 package com.jacaranda.tienda.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="FLOWER")
+@Table(name="flower")
 public class Article {
 
-		@Id
-		private int code;
+		@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+		private long code;
 		private String name;
 		private String description;
 		private float price;
@@ -57,15 +61,15 @@ public class Article {
 			this.price = price;
 		}
 
-		public Color getColor() {
+		public Category getColor() {
 			return color;
 		}
 
-		public void setColor(Color color) {
+		public void setColor(Category color) {
 			this.color = color;
 		}
 
-		public int getCode() {
+		public long getCode() {
 			return code;
 		}
 
@@ -90,7 +94,7 @@ public class Article {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			Flower other = (Flower) obj;
+			Article other = (Article) obj;
 			return code == other.code;
 		}
 
