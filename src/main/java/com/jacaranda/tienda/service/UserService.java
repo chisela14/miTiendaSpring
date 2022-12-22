@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jacaranda.tienda.model.User;
 import com.jacaranda.tienda.repository.UserRepository;
 
+//hacer servicio para cada clase
 @Service
 public class UserService {
 	
@@ -18,7 +19,19 @@ public class UserService {
 		return userRep.findAll();
 	}
 	
+	public User get(String username) {
+		return userRep.findById(username).orElse(null);
+	}
+	
 	public User add(User u) {
+		return userRep.save(u);
+	}
+	
+	public void delete(User u) {
+		userRep.delete(u);
+	}
+	
+	public User update(User u) {
 		return userRep.save(u);
 	}
 
