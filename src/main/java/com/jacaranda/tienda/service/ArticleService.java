@@ -17,5 +17,21 @@ public class ArticleService {
 	public List<Article> getArticles(){
 		return rep.findAll();
 	}
+	
+	public Article get(Long code) {
+		return rep.findById(code).orElse(null);
+	}
+	
+	public Article add(Article a) {
+		return rep.save(a);
+	}
+	
+	public void delete(Article a) {
+		rep.delete(a);
+	}
+	
+	public Article update(Article a) {
+		return rep.save(a);
+	}
 
 }

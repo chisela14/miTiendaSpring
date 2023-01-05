@@ -11,6 +11,9 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+	
+<!-- Fontawesome icons -->	
+<script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
 
 <title>Usuarios</title>
 </head>
@@ -18,7 +21,7 @@
 	<div class="container">
 		<div class="starter-template">
 			<h1>Listado de usuarios</h1>
-			<div align="right"><a href="/usuario/add"><button type="button" class="btn btn-dark">Añadir</button></a></div>
+			<div align="right"><a href="/usuario/add"><button type="button" class="btn btn-dark"><i class="fa-solid fa-plus"></i></button></a></div>
 			<table class="table">
 				<thead>
 					<tr>
@@ -26,23 +29,24 @@
 						<th>NOMBRE COMPLETO</th>
 						<th>CORREO ELECTRÓNICO</th>
 						<th>ADMINISTRADOR</th>
+						<th>ACCIONES</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="user :${userList}">
+					<tr th:each="user :${users}">
 						<td th:text="${user.username}"></td>
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.admin}"></td>
 						<td>
 							<a th:href="@{'/usuario/delete'(username=${user.username})}" >
-								<button id="delete" name="delete" class="btn btn-primary">Borrar</button>
+								<button id="delete" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
 							</a> 
 							<a th:href="@{'/usuario/update'(username=${user.username})}" >
-								<button id="update" name="update" class="btn btn-primary">Editar</button>
+								<button id="update" name="update" class="btn btn-primary"><i class="fa-solid fa-pen"></i></button>
 							</a>
 							<a th:href="@{'/usuario/admin'(username=${user.username})}" >
-								<button id="change" name="change" class="btn btn-primary">Cambiar tipo</button>
+								<button id="change" name="change" class="btn btn-warning"><i class="fa-solid fa-user-shield"></i></button>
 							</a>
 						</td>
 					</tr>

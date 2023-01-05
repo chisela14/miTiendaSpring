@@ -155,25 +155,25 @@ insert into users (username, password, name, email, admin) values ('chisela', md
 insert into users (username, password, name, email, admin) values ('user_chisela', md5('userchise'), 'Chisela Colás', 'chisela14@gmail.com', false);
 
 
-create table ORDERS (
+create table orders (
 	code INT(11), 
 	flower_code INT,
 	iva INT,
 	date DATE,
-    CONSTRAINT PK_ORDERS PRIMARY KEY (code),
-    CONSTRAINT FK2_ORDERS FOREIGN KEY (flower_code) REFERENCES miTiendaSpringColasChisela.flower (code) ON DELETE CASCADE
+    CONSTRAINT PK_orders PRIMARY KEY (code),
+    CONSTRAINT FK2_orders FOREIGN KEY (flower_code) REFERENCES miTiendaSpringColasChisela.flower (code) ON DELETE CASCADE
 );
--- INSERT ORDERS TABLE 
-insert into ORDERS (code, flower_code, iva, date) values (1, 76, 21, '2019-03-29');
-insert into ORDERS (code, flower_code, iva, date) values (2, 95, 21, '2011-11-12');
-insert into ORDERS (code, flower_code, iva, date) values (3, 65, 10, '2022-07-15');
-insert into ORDERS (code, flower_code, iva, date) values (4, 48, 21, '2013-11-28');
-insert into ORDERS (code, flower_code, iva, date) values (5, 25, 21, '2021-08-31');
-insert into ORDERS (code, flower_code, iva, date) values (6, 24, 21, '2017-10-21');
-insert into ORDERS (code, flower_code, iva, date) values (7, 43, 21, '2021-06-10');
-insert into ORDERS (code, flower_code, iva, date) values (8, 54, 0, '2022-01-17');
-insert into ORDERS (code, flower_code, iva, date) values (9, 36, 10, '2018-11-12');
-insert into ORDERS (code, flower_code, iva, date) values (10, 93, 4, '2017-05-24');
+-- INSERT orders TABLE 
+insert into orders (code, flower_code, iva, date) values (1, 76, 21, '2019-03-29');
+insert into orders (code, flower_code, iva, date) values (2, 95, 21, '2011-11-12');
+insert into orders (code, flower_code, iva, date) values (3, 65, 10, '2022-07-15');
+insert into orders (code, flower_code, iva, date) values (4, 48, 21, '2013-11-28');
+insert into orders (code, flower_code, iva, date) values (5, 25, 21, '2021-08-31');
+insert into orders (code, flower_code, iva, date) values (6, 24, 21, '2017-10-21');
+insert into orders (code, flower_code, iva, date) values (7, 43, 21, '2021-06-10');
+insert into orders (code, flower_code, iva, date) values (8, 54, 0, '2022-01-17');
+insert into orders (code, flower_code, iva, date) values (9, 36, 10, '2018-11-12');
+insert into orders (code, flower_code, iva, date) values (10, 93, 4, '2017-05-24');
 
-ALTER TABLE ORDERS MODIFY code INT AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE orders MODIFY code INT AUTO_INCREMENT, AUTO_INCREMENT=11;
 

@@ -15,38 +15,32 @@
 <!-- Fontawesome icons -->	
 <script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
 
-<title>Artículos</title>
+<title>Categorías</title>
 </head>
 <body>
 	<div class="container">
 		<div class="starter-template">
-			<h1>Listado de flores</h1>
-			<div align="right"><a href="/articulo/add"><button type="button" class="btn btn-dark"><i class="fa-solid fa-plus"></i></button></a></div>
+			<h1>Listado de colores</h1>
+			<div align="right"><a href="/categoria/add"><button type="button" class="btn btn-dark"><i class="fa-solid fa-plus"></i></button></a></div>
 			<table class="table">
 				<thead>
 					<tr>
 						<th>CÓDIGO</th>
 						<th>NOMBRE</th>
 						<th>DESCRIPCIÓN</th>
-						<th>PRECIO</th>
-						<th>COLOR</th>
-						<th>STOCK</th>
 						<th>ACCIONES</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="flower :${flowers}">
-						<td th:text="${flower.code}"></td>
-						<td th:text="${flower.name}"></td>
-						<td th:text="${flower.description}"></td>
-						<td th:text="${flower.price}"></td>
-						<td th:text="${flower.color.toString()}"></td>
-						<td th:text="${flower.stock}"></td>
+					<tr th:each="color :${colors}">
+						<td th:text="${color.code}"></td>
+						<td th:text="${color.name}"></td>
+						<td th:text="${color.description}"></td>
 						<td>
-							<a th:href="@{'/article/delete'(code=${flower.code})}" >
+							<a th:href="@{'/category/delete'(code=${color.code})}" >
 								<button id="delete" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
 							</a> 
-							<a th:href="@{'/article/update'(code=${flower.code})}" >
+							<a th:href="@{'/category/update'(code=${color.code})}" >
 								<button id="update" name="update" class="btn btn-primary"><i class="fa-solid fa-pen"></i></button>
 							</a>
 						</td>
@@ -57,4 +51,4 @@
 		</div>
 	</div>
 </body>
-</html>l>
+</html>

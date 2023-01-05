@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.jacaranda.tienda.model.User;
 import com.jacaranda.tienda.repository.UserRepository;
 
-//hacer servicio para cada clase
 @Service
 public class UserService {
 	

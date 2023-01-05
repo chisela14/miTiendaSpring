@@ -1,13 +1,17 @@
 package com.jacaranda.tienda.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,8 +27,8 @@ public class Article {
 		@JoinColumn(name="color")
 		private Category color;
 		private int stock;
-//		@OneToMany(mappedBy= "flower", cascade= CascadeType.ALL, orphanRemoval = true)
-//		private List<Purchase> purchasesList = new ArrayList<>();
+		@OneToMany(mappedBy= "flower", cascade= CascadeType.ALL, orphanRemoval = true)
+		private List<Order> orders = new ArrayList<>();
 		
 		public Article() {
 			
