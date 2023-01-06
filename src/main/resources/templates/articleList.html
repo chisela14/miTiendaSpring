@@ -40,7 +40,9 @@
 						<td th:text="${flower.name}"></td>
 						<td th:text="${flower.description}"></td>
 						<td th:text="${flower.price}"></td>
-						<td th:text="${flower.color.toString()}"></td>
+						<!--<td th:text="${flower.color.toString()}"></td> es posible salto de linea en toString?-->
+						<!-- salto de línea aquí: th:utext y '<br/>'-->
+						<td th:utext="${flower.color.code} + '<br/>' + ${flower.color.name}"></td>
 						<td th:text="${flower.stock}"></td>
 						<td>
 							<a th:href="@{'/article/delete'(code=${flower.code})}" >

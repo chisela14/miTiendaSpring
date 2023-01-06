@@ -18,6 +18,7 @@ public class ArticleController {
 
 	@Autowired
 	ArticleService serv;
+	@Autowired
 	CategoryService catService;
 	
 	@GetMapping({"/", "/articulo/list"})
@@ -28,6 +29,7 @@ public class ArticleController {
 	
 	@GetMapping("articulo/add")
 	public String addArticle(Model model) {
+		model.addAttribute("colorList", catService.getCategories());
 		Article a = new Article();
 		model.addAttribute("newArticle", a);
 		return "addArticle";

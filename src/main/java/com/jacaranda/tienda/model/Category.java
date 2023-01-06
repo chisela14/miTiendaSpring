@@ -76,7 +76,7 @@ public class Category {
 	}
 	@Override
 	public String toString() {
-		return name + " " + code;
+		return code + System.lineSeparator() + name; //hay alguna manera de añadir aquí un salto de línea para html?
 	}
 
 

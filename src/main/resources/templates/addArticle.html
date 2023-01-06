@@ -19,14 +19,6 @@
 		<fieldset>
 
 			<legend>Nuevo artículo</legend>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="name">Código</label>
-				<div class="col-md-4">
-					<input id="code" name="code" type="text" th:field= "*{code}" class="form-control input-md" 
-					value="newArticle.code" readonly>
-				</div>
-			</div>
 			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="name">Nombre:</label>
@@ -52,7 +44,9 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="color">Código de categoría:</label>
 				<div class="col-md-4">
-					<input id="color" name="color" type="text" class="form-control input-md" required>
+					<select class="form-select" id="color" name="color" required>
+						<option th:each="color :${colorList}" th:value="${color.code}" th:text="${color.name}"></option>
+					</select>
 				</div>
 			</div>
 			
