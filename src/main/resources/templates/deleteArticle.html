@@ -12,48 +12,60 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-<title>Añadir artículo</title>
+<title>Eliminar artículo</title>
 </head>
 <body>
-	<form class="form-horizontal" action="#" th:action="@{/articulo/add}" th:object="${newArticle}" method="post">
+	<form class="form-horizontal" action="#" th:action="@{/articulo/delete}" th:object="${delArticle}" method="post">
 		<fieldset>
 
-			<legend>Nuevo artículo</legend>
+			<legend>Artículo seleccionado</legend>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="code">Código:</label>
+				<div class="col-md-4">
+					<input id="code" name="code" type="text" th:field= "*{code}" class="form-control input-md" 
+					value="delArticle.code" readonly>
+				</div>
+			</div>
 			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="name">Nombre:</label>
 				<div class="col-md-4">
-					<input id="name" name="name" type="text" th:field= "*{name}" class="form-control input-md" required>
+					<input id="name" name="name" type="text" th:field= "*{name}" class="form-control input-md" 
+					value="delArticle.name" readonly>
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="description">Descripción:</label>
 				<div class="col-md-4">
-					<input id="description" name="description" type="text" th:field= "*{description}" class="form-control input-md">
+					<input id="description" name="description" type="text" th:field= "*{description}" class="form-control input-md" 
+					value="delArticle.description" readonly>
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="price">Precio:</label>
 				<div class="col-md-4">
-					<input id="price" name="price" type="text" class="form-control input-md" required>
+					<input id="price" name="price" type="text" th:field= "*{price}" class="form-control input-md" 
+					value="delArticle.price" readonly>
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="color">Código de categoría:</label>
 				<div class="col-md-4">
-					<select class="form-select" id="color" name="color" required>
-						<option th:each="color :${colorList}" th:value="${color.code}" th:text="${color.name}"></option>
+					<select class="form-select" id="color" name="color" readonly>
+						<option th:value="${delArticle.color.code}" th:text="${delArticle.color.name}"></option>
 					</select>
 				</div>
 			</div>
-			
+			<!-- value="" necesita el th:field -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="stock">Stock:</label>
 				<div class="col-md-4">
-					<input id="stock" name="stock" type="number" class="form-control input-md" required>
+					<input id="stock" name="stock" type="text" th:field= "*{stock}" class="form-control input-md" 
+					value="delArticle.stock" readonly>
 				</div>
 			</div>
 

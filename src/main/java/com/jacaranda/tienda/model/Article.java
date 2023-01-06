@@ -104,7 +104,8 @@ public class Article {
 
 		@Override
 		public String toString() {
-			return code + "<br>" + name + "         " + color.getCode() + "<br>Descripción: " + description + "<br>" + price + " €";
+			return code + " " + name + System.lineSeparator() + color.toString() + System.lineSeparator() +
+					"Descripción: " + description + System.lineSeparator() + price + "€ --" + stock;
 		}
 
 }

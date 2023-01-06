@@ -49,8 +49,7 @@ public class ArticleController {
 	
 	@GetMapping("articulo/delete")
 	public String deleteArticle(Model model, @RequestParam("code") Long code) {
-		Article flower = serv.get(code);
-		model.addAttribute("delArticle", flower);
+		model.addAttribute("delArticle", serv.get(code));
 		return "deleteArticle";
 	}
 	@PostMapping("articulo/delete")
@@ -59,15 +58,17 @@ public class ArticleController {
 		return "redirect:/articulo/list";
 	}
 	
-	
+	//NO ACTUALIZA, CREA UNO NUEVO
 	@GetMapping("articulo/update")
 	public String updateArticle(Model model, @RequestParam("code") Long code) {
-		Article flower = serv.get(code);
-		model.addAttribute("upArticle", flower);
+		model.addAttribute("colorList", catService.getCategories());
+		model.addAttribute("upArticle", serv.get(code));
 		return "updateArticle";
 	}
 	@PostMapping("articulo/update")
-	public String updateSubmit(@ModelAttribute("upArticle") Article a) {
+	public String updateSubmit(@ModelAttribute("upArticle") Article a, @RequestParam("color") String colorCode) {
+		Category color = catService.get(colorCode);
+		a.setColor(color);
 		serv.update(a);
 		return "redirect:/articulo/list";
 	}
