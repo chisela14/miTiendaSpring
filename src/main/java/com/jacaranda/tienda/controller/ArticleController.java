@@ -42,7 +42,7 @@ public class ArticleController {
 			serv.add(a);
 			return "redirect:/articulo/list";
 		}else {
-			return "redirect:/articulo/error";
+			return "error";
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class ArticleController {
 		return "redirect:/articulo/list";
 	}
 	
-	//NO ACTUALIZA, CREA UNO NUEVO
+	
 	@GetMapping("articulo/update")
 	public String updateArticle(Model model, @RequestParam("code") Long code) {
 		model.addAttribute("colorList", catService.getCategories());
@@ -73,10 +73,5 @@ public class ArticleController {
 		return "redirect:/articulo/list";
 	}
 	
-	
-	@GetMapping("articulo/error")
-	public String error() {
-		return "error";
-	}
 
 }

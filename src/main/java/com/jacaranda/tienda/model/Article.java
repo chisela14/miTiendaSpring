@@ -14,6 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+//jaja perdí 3 horas un día porque me faltaba el setter del id
+
 @Entity
 @Table(name="flower")
 public class Article {
@@ -39,6 +41,15 @@ public class Article {
 			this.description = description;
 			this.price = price;
 			this.color = color;
+		}
+
+		
+		public long getCode() {
+			return code;
+		}
+
+		public void setCode(long code) {
+			this.code = code;
 		}
 
 		public String getName() {
@@ -73,16 +84,20 @@ public class Article {
 			this.color = color;
 		}
 
-		public long getCode() {
-			return code;
-		}
-
 		public int getStock() {
 			return stock;
 		}
 
 		public void setStock(int stock) {
 			this.stock = stock;
+		}
+
+		public List<Order> getOrders() {
+			return orders;
+		}
+
+		public void setOrders(List<Order> orders) {
+			this.orders = orders;
 		}
 
 		@Override
