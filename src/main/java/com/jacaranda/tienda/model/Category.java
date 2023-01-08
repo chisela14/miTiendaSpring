@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name="color")
 public class Category {
 
-	@Id
+	@Id 
 	private String code;
 	private String name;
 	private String description;
@@ -29,7 +29,15 @@ public class Category {
 		this.name = name;
 		this.description = description;
 	}
-
+	
+	public String getCode() {
+		return code;
+	}
+	//necesita el setter para poner el valor del formulario en el objeto
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -52,10 +60,6 @@ public class Category {
 
 	public void setFlowerList(ArrayList<Article> flowerList) {
 		this.flowerList = flowerList;
-	}
-
-	public String getCode() {
-		return code;
 	}
 
 	@Override
