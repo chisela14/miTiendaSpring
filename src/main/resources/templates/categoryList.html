@@ -37,10 +37,10 @@
 						<td th:text="${color.name}"></td>
 						<td th:text="${color.description}"></td>
 						<td>
-							<a th:href="@{'/categoria/delete'(code=${color.code})}" >
+							<a th:href="@{'/categoria/delete'(id=${color.code})}" >
 								<button id="delete" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
 							</a> 
-							<a th:href="@{'/categoria/update'(code=${color.code})}" >
+							<a th:href="@{'/categoria/update'(id=${color.code})}" >
 								<button id="update" name="update" class="btn btn-primary"><i class="fa-solid fa-pen"></i></button>
 							</a>
 						</td>

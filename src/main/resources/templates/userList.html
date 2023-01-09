@@ -39,13 +39,13 @@
 						<td th:text="${user.email}"></td>
 						<td th:text="${user.admin}"></td>
 						<td>
-							<a th:href="@{'/usuario/delete'(username=${user.username})}" >
+							<a th:href="@{'/usuario/delete'(id=${user.username})}" >
 								<button id="delete" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
 							</a> 
-							<a th:href="@{'/usuario/update'(username=${user.username})}" >
+							<a th:href="@{'/usuario/update'(id=${user.username})}" >
 								<button id="update" name="update" class="btn btn-primary"><i class="fa-solid fa-pen"></i></button>
 							</a>
-							<a th:href="@{'/usuario/admin'(username=${user.username})}" >
+							<a th:href="@{'/usuario/admin'(id=${user.username})}" >
 								<button id="change" name="change" class="btn btn-warning"><i class="fa-solid fa-user-shield"></i></button>
 							</a>
 						</td>

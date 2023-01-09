@@ -50,7 +50,7 @@ public class ArticleController {
 	
 	
 	@GetMapping("articulo/delete")
-	public String deleteArticle(Model model, @RequestParam("code") Long code) {
+	public String deleteArticle(Model model, @RequestParam("id") Long code) {
 		model.addAttribute("delArticle", serv.get(code));
 		return "deleteArticle";
 	}
@@ -62,7 +62,7 @@ public class ArticleController {
 	
 	
 	@GetMapping("articulo/update")
-	public String updateArticle(Model model, @RequestParam("code") Long code) {
+	public String updateArticle(Model model, @RequestParam("id") Long code) {
 		//consigo el articulo para eliminar su color de la lista de categorias
 		//porque pongo la primera opción del select con el color del articulo y el resto con una bucle
 		Article article = serv.get(code);

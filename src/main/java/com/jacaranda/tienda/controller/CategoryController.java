@@ -41,7 +41,7 @@ public class CategoryController {
 	
 	
 	@GetMapping("/categoria/delete")
-	public String deleteCategory(Model model, @RequestParam("code") String colorCode) {
+	public String deleteCategory(Model model, @RequestParam("id") String colorCode) {
 		model.addAttribute("delCategory", serv.get(colorCode));
 		return "deleteCategory";
 	}
@@ -53,7 +53,7 @@ public class CategoryController {
 	
 	
 	@GetMapping("/categoria/update")
-	public String updateCategory(Model model, @RequestParam("code") String colorCode) {
+	public String updateCategory(Model model, @RequestParam("id") String colorCode) {
 		model.addAttribute("upCategory", serv.get(colorCode));
 		model.addAttribute("flowerlist", serv.get(colorCode).getFlowerList());//esto está bien así o debería pasarlo por el formulario?
 		return "updateCategory";
