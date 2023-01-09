@@ -56,6 +56,7 @@
 				<label class="col-md-4 control-label" for="color">Código de categoría:</label>
 				<div class="col-md-4">
 					<select class="form-select" id="color" name="color" required><!-- no muestra el que tiene por defecto -->
+						<option th:field= "*{color}" th:text="${upArticle.color.name}" value="upArticle.color.code"></option>
 						<option th:each="color :${colorList}" th:value="${color.code}" th:text="${color.name}"></option>
 					</select>
 				</div>

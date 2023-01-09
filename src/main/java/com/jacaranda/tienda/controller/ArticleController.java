@@ -1,5 +1,7 @@
 package com.jacaranda.tienda.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,8 +63,13 @@ public class ArticleController {
 	
 	@GetMapping("articulo/update")
 	public String updateArticle(Model model, @RequestParam("code") Long code) {
-		model.addAttribute("colorList", catService.getCategories());
-		model.addAttribute("upArticle", serv.get(code));
+		//consigo el articulo para eliminar su color de la lista de categorias
+		//porque pongo la primera opción del select con el color del articulo y el resto con una bucle
+		Article article = serv.get(code);
+		List<Category> categories = catService.getCategories();
+		categories.remove(article.getColor());
+		model.addAttribute("colorList", categories);
+		model.addAttribute("upArticle", article);
 		return "updateArticle";
 	}
 	@PostMapping("articulo/update")

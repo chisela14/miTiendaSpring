@@ -13,9 +13,26 @@
 	crossorigin="anonymous">
 
 <title>Editar usuario</title>
+
+<script>
+	function checkPassword(form) {
+		
+		password1 = form.password.value;
+		password2 = form.confirmPassword.value;
+		   
+		if (password1 != password2) {
+			alert("Las contraseñas no coinciden")
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+</script>
+
 </head>
 <body>
-	<form class="form-horizontal" action="#" th:action="@{/usuario/update}" th:object="${userUp}" method="post">
+	<form class="form-horizontal" action="#" th:action="@{/usuario/update}" th:object="${userUp}" method="post" onSubmit="return checkPassword(this)">
 		<fieldset>
 
 			<legend>Editar usuario</legend>

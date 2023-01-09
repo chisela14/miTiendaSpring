@@ -45,7 +45,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="admin">Administrador:</label>
 				<div class="col-md-4">
-					<input id="admin" name="admin" type="text" th:field= "*{admin}" value="userAdm.admin" class="form-control input-md" required>
+					<input id="admin" name="admin" type="radio" th:field= "*{admin}" value="true" class="form-check-input" required> Sí
+					<input id="user" name="admin" type="radio" th:field= "*{admin}" value="false" class="form-check-input"> No
 				</div>
 			</div>
 			
