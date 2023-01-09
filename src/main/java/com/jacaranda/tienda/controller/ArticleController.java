@@ -1,8 +1,10 @@
 package com.jacaranda.tienda.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +26,17 @@ public class ArticleController {
 	CategoryService catService;
 	
 	@GetMapping({"/", "/articulo/list"})
-	public String articleList(Model model) {
-		model.addAttribute("flowers", serv.getArticles());
+	public String articleList(Model model, @RequestParam("pageNumber")Optional<Integer> pageNumber,
+			@RequestParam("sizeNumber") Optional<Integer> sizeNumber) {
+		
+		Page<Article> page = serv.getArticles(pageNumber.orElse(1), sizeNumber.orElse(10));
+		
+		model.addAttribute("currentPage", pageNumber.orElse(1));
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("flowers", page.getContent());
+		
+		//model.addAttribute("flowers", serv.getArticles());
 		return "articleList";
 	}
 	
@@ -63,11 +74,11 @@ public class ArticleController {
 	
 	@GetMapping("articulo/update")
 	public String updateArticle(Model model, @RequestParam("id") Long code) {
-		//consigo el articulo para eliminar su color de la lista de categorias
-		//porque pongo la primera opción del select con el color del articulo y el resto con una bucle
+		//consigo el articulo para eliminar su color de la lista de categorias y añadirlo en primer puesto
 		Article article = serv.get(code);
 		List<Category> categories = catService.getCategories();
 		categories.remove(article.getColor());
+		categories.add(0, article.getColor());
 		model.addAttribute("colorList", categories);
 		model.addAttribute("upArticle", article);
 		return "updateArticle";

@@ -19,6 +19,15 @@
 </head>
 <body>
 	<div class="container">
+		<nav class="navbar navbar-dark bg-primary">
+	  		 <form class="form-inline">
+	   			<a th:href="@{/usuario/list}"><button type="button" class="btn btn-primary">Usuarios</button></a>
+	   			<a th:href="@{/categoria/list}"><button type="button" class="btn btn-primary">Categorías</button></a>
+	   			<button type="button" class="btn btn-primary"><span th:text=${#authentication.name}></span></button>
+	   			<a th:href="@{/logout}"><button type="button" class="btn btn-primary">Log Out</button></a>
+	 		 </form>
+	 	</nav>
+ 	
 		<div class="starter-template">
 			<h1>Listado de flores</h1>
 			<div align="right"><a href="/articulo/add"><button type="button" class="btn btn-dark"><i class="fa-solid fa-plus"></i></button></a></div>
@@ -57,6 +66,27 @@
 
 			</table>
 		</div>
+		
+		<div>
+		Total Items: <a th:text="${totalItems}"></a>
+		<a th:if="${currentPage > 1}" th:href="@{/articulo/list?pageNumber=1}"> First</a>
+		<span th:unless="${currentPage > 1}">First</span>
+		
+		<a th:if="${currentPage > 1}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage - 1}}">Previous</a>
+		<span th:unless="${currentPage > 1}">Previous</span>
+		
+		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a th:if="${currentPage != i}" th:href="@{'/articulo/list?pageNumber=' + ${i}}" th:text="${i}"></a>
+			<span th:unless="${currentPage != i}"> <a th:text="${i}"></a></span>&nbsp;
+		</span>
+		
+		<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage + 1}}">Next</a>
+		<span th:unless="${currentPage < totalPages}">Next</span>
+		
+		<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${totalPages}}">Last</a>
+		<span th:unless="${currentPage < totalPages}">Last</span>
+		
+		</div>
 	</div>
 </body>
-</html>l>
+</html>

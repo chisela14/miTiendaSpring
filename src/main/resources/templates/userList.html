@@ -19,6 +19,15 @@
 </head>
 <body>
 	<div class="container">
+		<nav class="navbar navbar-dark bg-primary">
+	  		 <form class="form-inline">
+	   			<a th:href="@{/articulo/list}"><button type="button" class="btn btn-primary">Artículos</button></a>
+	   			<a th:href="@{/categoria/list}"><button type="button" class="btn btn-primary">Categorías</button></a>
+	   			<button type="button" class="btn btn-primary"><span th:text=${#authentication.name}></span></button>
+	   			<a th:href="@{/logout}"><button type="button" class="btn btn-primary">Log Out</button></a>
+	 		 </form>
+	 	</nav>
+	 	
 		<div class="starter-template">
 			<h1>Listado de usuarios</h1>
 			<div align="right"><a href="/usuario/add"><button type="button" class="btn btn-dark"><i class="fa-solid fa-plus"></i></button></a></div>
