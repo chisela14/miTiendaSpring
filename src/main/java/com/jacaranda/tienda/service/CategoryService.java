@@ -30,8 +30,11 @@ public class CategoryService {
 		rep.delete(c);
 	}
 	
-	public Category update(Category c) {
-		return rep.save(c);
+	public void update(Category c) {
+		Category color = get(c.getCode());
+		color.setName(c.getName());
+		color.setDescription(c.getDescription());
+		rep.save(color);
 	}
 
 }

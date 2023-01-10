@@ -68,7 +68,7 @@
 		</div>
 		
 		<div>
-		Total Items: <a th:text="${totalItems}"></a>
+		Total Items: <a th:text="${totalItems}"></a><!-- pulsando aquí se verían sin paginación -->
 		<a th:if="${currentPage > 1}" th:href="@{/articulo/list?pageNumber=1}"> First</a>
 		<span th:unless="${currentPage > 1}">First</span>
 		
@@ -77,7 +77,7 @@
 		
 		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
 			<a th:if="${currentPage != i}" th:href="@{'/articulo/list?pageNumber=' + ${i}}" th:text="${i}"></a>
-			<span th:unless="${currentPage != i}"> <a th:text="${i}"></a></span>&nbsp;
+			<span th:unless="${currentPage != i}" th:text="${i}"></span>&nbsp;
 		</span>
 		
 		<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage + 1}}">Next</a>

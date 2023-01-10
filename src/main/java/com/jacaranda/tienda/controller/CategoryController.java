@@ -1,6 +1,5 @@
 package com.jacaranda.tienda.controller;
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.jacaranda.tienda.model.Article;
 import com.jacaranda.tienda.model.Category;
 import com.jacaranda.tienda.service.CategoryService;
 
@@ -55,12 +53,13 @@ public class CategoryController {
 	@GetMapping("/categoria/update")
 	public String updateCategory(Model model, @RequestParam("id") String colorCode) {
 		model.addAttribute("upCategory", serv.get(colorCode));
-		model.addAttribute("flowerlist", serv.get(colorCode).getFlowerList());//esto está bien así o debería pasarlo por el formulario?
+		//model.addAttribute("flowerList", serv.get(colorCode).getFlowerList());
 		return "updateCategory";
 	}
 	@PostMapping("/categoria/update")
-	public String updateSubmit(@ModelAttribute("upCategory") Category color, @ModelAttribute("flowerList") ArrayList<Article> list) {
-		color.setFlowerList(list);
+	public String updateSubmit(@ModelAttribute("upCategory") Category color) {
+		//@ModelAttribute("flowerList") ArrayList<Article> list
+		//color.setFlowerList(list);
 		serv.update(color);
 		return "redirect:/categoria/list";
 	}
