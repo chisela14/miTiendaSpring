@@ -1,24 +1,37 @@
 package com.jacaranda.tienda.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
 @Entity
 @Table(name="users")//he tenido que ponerlo en minúsculas aquí y en la bd porque algo
 //lo pasa a minúsculas y daba error de no encontrado
-public class User {
+public class User implements UserDetails {
 	@Id
 	private String username;
 	private String password;
 	private String name;
 	private String email; 
 	private boolean admin;
-//	@OneToMany(mappedBy= "user", cascade= CascadeType.ALL, orphanRemoval = true)
-//	private List<Order> orders = new ArrayList<>();
+	@JoinColumn(name="verification_code")
+	private String verificationCode;
+	private boolean enabled;
+	@OneToMany(mappedBy= "user", cascade= CascadeType.ALL, orphanRemoval = true)
+	private List<Order> orders = new ArrayList<>();
 
 	public User() {
 		
@@ -40,8 +53,11 @@ public class User {
 		this.setName(name);
 		this.setEmail(email);
 		this.admin = false;
+		this.verificationCode = null;
+		this.enabled = false;
 	}
 	
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -53,7 +69,8 @@ public class User {
 			this.username = username;
 		}
 	}
-
+	
+	@Override
 	public String getPassword() { 
 		return password;
 	}
@@ -99,6 +116,31 @@ public class User {
 		this.admin = admin;
 	}
 
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(username);
@@ -119,7 +161,33 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", name=" + name + ", email=" + email
-				+ ", admin=" + admin + "]";
+				+ ", admin=" + admin + ", enabled=" + enabled + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		String role = "USER";
+		if(this.admin) {
+			role = "ADMIN";
+		}
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(role));
+		return authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
 	}
 
 }

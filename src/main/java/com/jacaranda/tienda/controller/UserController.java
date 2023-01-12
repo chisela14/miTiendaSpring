@@ -1,5 +1,7 @@
 package com.jacaranda.tienda.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jacaranda.tienda.model.User;
+import com.jacaranda.tienda.model.UserException;
 import com.jacaranda.tienda.service.UserService;
+
+import jakarta.mail.MessagingException;
 
 @Controller
 public class UserController {
@@ -42,7 +47,12 @@ public class UserController {
 		if (bindingResult.hasErrors()) { 
 			return "addUser";
 		}else {
-			userServ.add(u);
+			try {
+				userServ.add(u, "usuario/add");
+			} catch (UnsupportedEncodingException | MessagingException | UserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//?
 			return "redirect:/usuario/list";
 		}
 	}
