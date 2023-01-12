@@ -144,36 +144,40 @@ create table users (
 	password VARCHAR(32) NOT NULL, -- TAMAÑO 32 PARA LA ENCRIPTACIÓN MD5
 	name VARCHAR(50) NOT NULL,
 	email VARCHAR(50),
-	admin VARCHAR(50),
+	admin VARCHAR(5),
+	verification_code VARCHAR(64),
+	enabled VARCHAR(5),
     CONSTRAINT PK_users PRIMARY KEY (username)
 ); 
 
 -- INSERT users TABLE 
-insert into users (username, password, name, email, admin) values ('ioliasa', md5('ioliasa'), 'Inmaculada Olias', 'ioliasa@gmail.com', true); -- 1 admin 0 no admin se guardará
-insert into users (username, password, name, email, admin) values ('user_inma', md5('userinma'), 'Inma Olias', 'ioliasa@gmail.com', false);
-insert into users (username, password, name, email, admin) values ('chisela', md5('chisela'), 'Chisela Colás', 'chisela14@gmail.com', true);
-insert into users (username, password, name, email, admin) values ('user_chisela', md5('userchise'), 'Chisela Colás', 'chisela14@gmail.com', false);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('ioliasa', md5('ioliasa'), 'Inmaculada Olias', 'ioliasa@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true); -- 1 admin 0 no admin se guardará
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_inma', md5('userinma'), 'Inma Olias', 'ioliasa@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('chisela', md5('chisela'), 'Chisela Colás', 'chisela14@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_chisela', md5('userchise'), 'Chisela Colás', 'chisela14@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
 
 
 create table orders (
 	code INT(11), 
+	user_code VARCHAR(50),
 	flower_code INT,
 	iva INT,
 	date DATE,
     CONSTRAINT PK_orders PRIMARY KEY (code),
+    CONSTRAINT FK_orders FOREIGN KEY (user_code) REFERENCES miTiendaSpringColasChisela.users (username) ON DELETE CASCADE,
     CONSTRAINT FK2_orders FOREIGN KEY (flower_code) REFERENCES miTiendaSpringColasChisela.flower (code) ON DELETE CASCADE
 );
 -- INSERT orders TABLE 
-insert into orders (code, flower_code, iva, date) values (1, 76, 21, '2019-03-29');
-insert into orders (code, flower_code, iva, date) values (2, 95, 21, '2011-11-12');
-insert into orders (code, flower_code, iva, date) values (3, 65, 10, '2022-07-15');
-insert into orders (code, flower_code, iva, date) values (4, 48, 21, '2013-11-28');
-insert into orders (code, flower_code, iva, date) values (5, 25, 21, '2021-08-31');
-insert into orders (code, flower_code, iva, date) values (6, 24, 21, '2017-10-21');
-insert into orders (code, flower_code, iva, date) values (7, 43, 21, '2021-06-10');
-insert into orders (code, flower_code, iva, date) values (8, 54, 0, '2022-01-17');
-insert into orders (code, flower_code, iva, date) values (9, 36, 10, '2018-11-12');
-insert into orders (code, flower_code, iva, date) values (10, 93, 4, '2017-05-24');
+insert into orders (code, user_code, flower_code, iva, date) values (1, 'chisela', 76, 21, '2019-03-29');
+insert into orders (code, user_code, flower_code, iva, date) values (2, 'chisela', 95, 21, '2011-11-12');
+insert into orders (code, user_code, flower_code, iva, date) values (3, 'chisela', 65, 10, '2022-07-15');
+insert into orders (code, user_code, flower_code, iva, date) values (4, 'chisela', 48, 21, '2013-11-28');
+insert into orders (code, user_code, flower_code, iva, date) values (5, 'ioliasa', 25, 21, '2021-08-31');
+insert into orders (code, user_code, flower_code, iva, date) values (6, 'ioliasa', 24, 21, '2017-10-21');
+insert into orders (code, user_code, flower_code, iva, date) values (7, 'ioliasa', 43, 21, '2021-06-10');
+insert into orders (code, user_code, flower_code, iva, date) values (8, 'ioliasa', 54, 0, '2022-01-17');
+insert into orders (code, user_code, flower_code, iva, date) values (9, 'user_inma', 36, 10, '2018-11-12');
+insert into orders (code, user_code, flower_code, iva, date) values (10, 'user_chisela', 93, 4, '2017-05-24');
 
 ALTER TABLE orders MODIFY code INT AUTO_INCREMENT, AUTO_INCREMENT=11;
 
