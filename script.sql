@@ -141,7 +141,7 @@ ALTER TABLE miTiendaSpringColasChisela.flower MODIFY code INT AUTO_INCREMENT, AU
 
 create table users (
 	username VARCHAR(50),
-	password VARCHAR(32) NOT NULL, -- TAMAÑO 32 PARA LA ENCRIPTACIÓN MD5
+	password VARCHAR(200) NOT NULL, 
 	name VARCHAR(50) NOT NULL,
 	email VARCHAR(50),
 	admin VARCHAR(5),
@@ -151,10 +151,10 @@ create table users (
 ); 
 
 -- INSERT users TABLE 
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('ioliasa', md5('ioliasa'), 'Inmaculada Olias', 'ioliasa@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true); -- 1 admin 0 no admin se guardará
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_inma', md5('userinma'), 'Inma Olias', 'ioliasa@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('chisela', md5('chisela'), 'Chisela Colás', 'chisela14@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_chisela', md5('userchise'), 'Chisela Colás', 'chisela14@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('ioliasa', '$2a$10$MCTQK7lnsuVeH7YOpshpuOfrIkKcaLlc1t37JaMjf4VvgjobzKYq2', 'Inmaculada Olias', 'ioliasa@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true); -- 1 admin 0 no admin se guardará
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_inma', '$2a$10$MXfDMkJe4YBow7QbqOMD4Oz2KZ4Sl57T/N2WJBoMFwt.w8pGmmu0C', 'Inma Olias', 'ioliasa@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('chisela', '$2a$10$Rkw05L2mpRi32.Ju6sM0PuSCpvqVCPDyhnHm.sKWfe.un1z8.4Fqy', 'Chisela Colás', 'chisela14@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_chisela', '$2a$10$QxrmcJ7vjMCtfzgms9njmOLq65XgH3360tePAk3zPrsYNapLGP4uy', 'Chisela Colás', 'chisela14@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
 
 
 create table orders (

@@ -57,26 +57,27 @@ public class WebSecurityConfig {
 			.requestMatchers("/").permitAll()
 			.requestMatchers("/login").permitAll()
 			.requestMatchers("/signUp").permitAll()
+			.requestMatchers("/usuario/verify**").permitAll()
+			.requestMatchers("/usuario/add").permitAll()
 			
-			.requestMatchers("/articulo/list").hasAnyAuthority("USER","ADMIN")
+			.requestMatchers("/articulo/list").hasAuthority("USER")
 			.requestMatchers("/articulo/**").hasAuthority("ADMIN")
 			.requestMatchers("/articulo/update/**").hasAuthority("ADMIN")
 			.requestMatchers("/articulo/delete/**").hasAuthority("ADMIN")
 			
-			.requestMatchers("/userList/").hasAuthority("ADMIN")
-			.requestMatchers("/addUser").hasAuthority("ADMIN")
-			.requestMatchers("/deleteUser/**").hasAuthority("ADMIN")
-			.requestMatchers("/updateUser/**").hasAnyAuthority("ADMIN","USER") //controlar en la plantilla
-			.requestMatchers("/changeUser/**").hasAuthority("ADMIN")
+			.requestMatchers("/usuario/**").hasAuthority("ADMIN")
+			.requestMatchers("/usuario/delete/**").hasAuthority("ADMIN")
+			.requestMatchers("/usuario/update/**").hasAnyAuthority("ADMIN","USER") //controlar en la plantilla
+			.requestMatchers("/usuario/admin/**").hasAuthority("ADMIN")
 			
-			.requestMatchers("/categoryList").hasAnyAuthority("USER","ADMIN")
-			.requestMatchers("/addCategory").hasAuthority("ADMIN")
-			.requestMatchers("/updateCategory/**").hasAuthority("ADMIN")
-			.requestMatchers("/delCategory/**").hasAuthority("ADMIN")
+			.requestMatchers("/category/list").hasAuthority("USER")
+			.requestMatchers("/category/**").hasAuthority("ADMIN")
+			.requestMatchers("/category/update/**").hasAuthority("ADMIN")
+			.requestMatchers("/category/delete/**").hasAuthority("ADMIN")
 			.anyRequest().authenticated();
 		})
 		.formLogin((form) -> form
-		// .loginPage("/process_register")
+			//.loginPage("/login")
 			.permitAll())
 		.logout((logout) -> logout.permitAll());
 	

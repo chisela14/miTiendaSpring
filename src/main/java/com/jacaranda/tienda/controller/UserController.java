@@ -24,13 +24,18 @@ public class UserController {
 	@Autowired
 	UserService userServ;
 	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
 	@GetMapping("/usuario/list")
 	public String userList(Model model) {
 		model.addAttribute("users", userServ.getUsers());
 		return "userList";
 	}
 	
-	@GetMapping("usuario/add")
+	@GetMapping({"usuario/add", "signUp"})
 	public String addUser(Model model) {
 		User u = new User();
 		model.addAttribute("newUser", u);
@@ -39,7 +44,7 @@ public class UserController {
 	
 	//validaciones que se puedan, la comprobación de que las contraseñas coinciden
 	//le corresponde al cliente
-	@PostMapping("usuario/add")
+	@PostMapping({"usuario/add", "signUp"})
 	public String addSubmit( @Validated @ModelAttribute("newUser") User u,
 			BindingResult bindingResult) {
 		//TO DO la contraseña no coincide
@@ -48,7 +53,7 @@ public class UserController {
 			return "addUser";
 		}else {
 			try {
-				userServ.add(u, "usuario/add");
+				userServ.add(u, "http://localhost:8080/usuario");
 			} catch (UnsupportedEncodingException | MessagingException | UserException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
