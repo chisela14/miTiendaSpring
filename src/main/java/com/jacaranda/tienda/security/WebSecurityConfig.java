@@ -53,15 +53,26 @@ public class WebSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((requests) -> 
 		{requests
-			.requestMatchers("/").permitAll()
 			.requestMatchers("/css").permitAll()
-			.requestMatchers("/articleList").hasAnyAuthority("USER","ADMIN")
-			.requestMatchers("/elements/**").hasAnyAuthority("USER","ADMIN")
-			.requestMatchers("/addArticle").hasAuthority("ADMIN")
-			.requestMatchers("/editArticle/**").hasAuthority("ADMIN")
-			.requestMatchers("/delArticle/**").hasAuthority("ADMIN")
-			.requestMatchers("/addUser").permitAll()
-			.requestMatchers("/process_register").permitAll()
+			.requestMatchers("/").permitAll()
+			.requestMatchers("/login").permitAll()
+			.requestMatchers("/signUp").permitAll()
+			
+			.requestMatchers("/articulo/list").hasAnyAuthority("USER","ADMIN")
+			.requestMatchers("/articulo/**").hasAuthority("ADMIN")
+			.requestMatchers("/articulo/update/**").hasAuthority("ADMIN")
+			.requestMatchers("/articulo/delete/**").hasAuthority("ADMIN")
+			
+			.requestMatchers("/userList/").hasAuthority("ADMIN")
+			.requestMatchers("/addUser").hasAuthority("ADMIN")
+			.requestMatchers("/deleteUser/**").hasAuthority("ADMIN")
+			.requestMatchers("/updateUser/**").hasAnyAuthority("ADMIN","USER") //controlar en la plantilla
+			.requestMatchers("/changeUser/**").hasAuthority("ADMIN")
+			
+			.requestMatchers("/categoryList").hasAnyAuthority("USER","ADMIN")
+			.requestMatchers("/addCategory").hasAuthority("ADMIN")
+			.requestMatchers("/updateCategory/**").hasAuthority("ADMIN")
+			.requestMatchers("/delCategory/**").hasAuthority("ADMIN")
 			.anyRequest().authenticated();
 		})
 		.formLogin((form) -> form

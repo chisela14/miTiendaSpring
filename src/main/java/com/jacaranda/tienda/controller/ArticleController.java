@@ -25,7 +25,7 @@ public class ArticleController {
 	@Autowired
 	CategoryService catService;
 	
-	@GetMapping({"/", "/articulo/list"})
+	@GetMapping("/articulo/list")
 	public String articleList(Model model, @RequestParam("pageNumber")Optional<Integer> pageNumber,
 			@RequestParam("sizeNumber") Optional<Integer> sizeNumber) {
 		
