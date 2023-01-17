@@ -15,16 +15,27 @@
 <!-- Fontawesome icons -->	
 <script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+	function clearSearch() {
+	window.location = "[[@{/}]]";
+	}
+</script>
+
 <title>Artículos</title>
 </head>
 <body>
 	<div class="container">
 		<nav class="navbar navbar-dark bg-primary">
-	  		 <form class="form-inline">
+	  		 <form class="form-inline" th:action="@{/}">
 	   			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/list}"><button type="button" class="btn btn-primary">Usuarios</button></a>
 	   			<a th:href="@{/categoria/list}"><button type="button" class="btn btn-primary">Categorías</button></a>
-	   			<a th:href="@{'/usuario/update'(id=${#authentication.username})}"><button type="button" class="btn btn-primary"><span th:text=${#authentication.name}></span></button></a>
+	   			<a th:href="@{'/usuario/update'(id=${#authentication.name})}"><button type="button" class="btn btn-primary"><span th:text=${#authentication.name}></span></button></a>
 	   			<a th:href="@{/logout}"><button type="button" class="btn btn-primary">Log Out</button></a>
+	   			
+	   			Filter: <input type="text" name="stringFind" id="stringFind" size="50"
+				th:value="${keyword}" class="form-control input-md" placeholder="Búsqueda por nombre"/> &nbsp;
+				<input type="submit" value="Search" class="btn btn-primary"/> &nbsp; 
+				<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" class="btn btn-primary"/> 
 	 		 </form>
 	 	</nav>
  	

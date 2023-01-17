@@ -27,13 +27,18 @@ public class ArticleController {
 	
 	@GetMapping("/articulo/list")
 	public String articleList(Model model, @RequestParam("pageNumber")Optional<Integer> pageNumber,
-			@RequestParam("sizeNumber") Optional<Integer> sizeNumber) {
+			@RequestParam("sizeNumber") Optional<Integer> sizeNumber,
+			@RequestParam("sortField") Optional<String> sortField,
+			@RequestParam("stringFind") Optional<String> stringFind) {
 		
-		Page<Article> page = serv.getArticles(pageNumber.orElse(1), sizeNumber.orElse(10));
+		Page<Article> page = serv.getArticles(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null));
 		
 		model.addAttribute("currentPage", pageNumber.orElse(1));
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("sortField", sortField.orElse("id"));
+		model.addAttribute("keyword", stringFind.orElse(null));
+		
 		model.addAttribute("flowers", page.getContent());
 		
 		//model.addAttribute("flowers", serv.getArticles());

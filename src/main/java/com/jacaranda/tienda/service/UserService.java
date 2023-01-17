@@ -103,5 +103,19 @@ public class UserService implements UserDetailsService {
 		helper.setText(content, true);
 		mailSender.send(message);
 	}
+	
+	public boolean verify(String verificationCode) {
+		boolean result = false;
+		User user = rep.findByVerificationCode(verificationCode);
+		if (user != null && !user.isEnabled()) {
+			user.setVerificationCode(null);
+			user.setEnabled(true);
+			rep.save(user);
+			result = true;
+		} 
+		
+		return result;	
+	
+	}
 
 }

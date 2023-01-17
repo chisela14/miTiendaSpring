@@ -57,23 +57,17 @@ public class WebSecurityConfig {
 			.requestMatchers("/").permitAll()
 			.requestMatchers("/login").permitAll()
 			.requestMatchers("/signUp").permitAll()
-			.requestMatchers("/usuario/verify**").permitAll()
+			.requestMatchers("/usuario/verify/**").permitAll()
 			.requestMatchers("/usuario/add").permitAll()
-			
-			.requestMatchers("/articulo/list").hasAuthority("USER")
+			//el orden es importante, si ya tiene una regla para admin no reaplicará otra para user
+			.requestMatchers("/articulo/list").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/articulo/**").hasAuthority("ADMIN")
-			.requestMatchers("/articulo/update/**").hasAuthority("ADMIN")
-			.requestMatchers("/articulo/delete/**").hasAuthority("ADMIN")
 			
+			.requestMatchers("/usuario/update").hasAnyAuthority("USER", "ADMIN") //controlar en la plantilla
 			.requestMatchers("/usuario/**").hasAuthority("ADMIN")
-			.requestMatchers("/usuario/delete/**").hasAuthority("ADMIN")
-			.requestMatchers("/usuario/update/**").hasAnyAuthority("ADMIN","USER") //controlar en la plantilla
-			.requestMatchers("/usuario/admin/**").hasAuthority("ADMIN")
 			
-			.requestMatchers("/category/list").hasAuthority("USER")
+			.requestMatchers("/category/list").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/category/**").hasAuthority("ADMIN")
-			.requestMatchers("/category/update/**").hasAuthority("ADMIN")
-			.requestMatchers("/category/delete/**").hasAuthority("ADMIN")
 			.anyRequest().authenticated();
 		})
 		.formLogin((form) -> form

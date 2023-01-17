@@ -3,6 +3,7 @@ package com.jacaranda.tienda.controller;
 import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,6 +60,14 @@ public class UserController {
 				e.printStackTrace();
 			}//?
 			return "redirect:/usuario/list";
+		}
+	}
+	@GetMapping("usuario/verify")
+	public String verify (@Param("code") String code) {
+		if (userServ.verify(code)) {
+			return "verifySuccess";
+		} else {
+			return "verifyFail";
 		}
 	}
 	
