@@ -151,10 +151,10 @@ create table users (
 ); 
 
 -- INSERT users TABLE 
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('ioliasa', '$2a$10$MCTQK7lnsuVeH7YOpshpuOfrIkKcaLlc1t37JaMjf4VvgjobzKYq2', 'Inmaculada Olias', 'ioliasa@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true); -- 1 admin 0 no admin se guardará
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_inma', '$2a$10$MXfDMkJe4YBow7QbqOMD4Oz2KZ4Sl57T/N2WJBoMFwt.w8pGmmu0C', 'Inma Olias', 'ioliasa@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('chisela', '$2a$10$Rkw05L2mpRi32.Ju6sM0PuSCpvqVCPDyhnHm.sKWfe.un1z8.4Fqy', 'Chisela Colás', 'chisela14@gmail.com', true, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_chisela', '$2a$10$QxrmcJ7vjMCtfzgms9njmOLq65XgH3360tePAk3zPrsYNapLGP4uy', 'Chisela Colás', 'chisela14@gmail.com', false, 'qwertyuiopasdfghjklzxcvbnmqwertyQwertyuiopasdfghjklzxcvbnmqwerty', true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('ioliasa', '$2a$10$MCTQK7lnsuVeH7YOpshpuOfrIkKcaLlc1t37JaMjf4VvgjobzKYq2', 'Inmaculada Olias', 'ioliasa@gmail.com', true, null, true); -- 1 admin 0 no admin se guardará
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_inma', '$2a$10$MXfDMkJe4YBow7QbqOMD4Oz2KZ4Sl57T/N2WJBoMFwt.w8pGmmu0C', 'Inma Olias', 'ioliasa@gmail.com', false, null, true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('chisela', '$2a$10$Rkw05L2mpRi32.Ju6sM0PuSCpvqVCPDyhnHm.sKWfe.un1z8.4Fqy', 'Chisela Colás', 'chisela14@gmail.com', true, null, true);
+insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_chisela', '$2a$10$QxrmcJ7vjMCtfzgms9njmOLq65XgH3360tePAk3zPrsYNapLGP4uy', 'Chisela Colás', 'chisela14@gmail.com', false, null, true);
 
 
 create table orders (
