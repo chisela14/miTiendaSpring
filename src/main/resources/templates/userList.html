@@ -15,11 +15,50 @@
 <!-- Fontawesome icons -->	
 <script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+	function clearSearch() {
+	window.location = "[[@{/usuario/list}]]";
+	}
+</script>
+
 <title>Usuarios</title>
 </head>
 <body>
 	<div class="container">
 		<nav class="navbar navbar-dark bg-primary">
+			<div class="container-fluid">	
+				<div class="d-flex"> 		 
+	  				<a th:href="@{/logout}">
+	  					<button type="button" class="btn btn-primary">
+	  					<i class="fa-regular fa-circle-left"></i>
+	  					Salir</button>
+	  				</a>
+		  		 	<a th:href="@{'/usuario/update'(id=${#authentication.name})}">
+		  		 		<button type="button" class="btn btn-primary">
+		  		 		<i class="fa-regular fa-user"></i>
+		  		 		<span th:text=${#authentication.name}></span>
+		  		 		</button>
+		  		 	</a>
+	  		 	</div> 
+	  		 	<div class="d-flex">
+	   				<a th:href="@{/categoria/list?stringFind=}"><button type="button" class="btn btn-primary">Categorías</button></a>
+	   				<a th:href="@{/articulo/list?stringFind=}"><button type="button" class="btn btn-primary">Artículos</button></a>
+	   			</div>
+	   			
+	   			<form class="d-flex form-inline" th:action="@{/articulo/list}">
+		   			<div class="input-group" style="float:right">
+			   			<input type="text" name="stringFind" id="stringFind" size="30"
+						th:value="${keyword}" class="form-control input-md border-right-0 border" placeholder="Búsqueda por nombre">
+						<span class="input-group-append">
+			                <button class="btn btn-light border-left-0 border" 
+			                	id="btnClear" onclick="clearSearch()" type="button">
+			                    <i class="fa fa-times"></i>
+			                </button>
+			            </span>&nbsp;
+						<button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button> &nbsp; 
+		   			</div>
+	 		 	</form>
+	 		</div>
 	  		 <form class="form-inline">
 	   			<a th:href="@{/articulo/list}"><button type="button" class="btn btn-primary">Artículos</button></a>
 	   			<a th:href="@{/categoria/list}"><button type="button" class="btn btn-primary">Categorías</button></a>
@@ -34,10 +73,10 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>NOMBRE DE USUARIO</th>
-						<th>NOMBRE COMPLETO</th>
-						<th>CORREO ELECTRÓNICO</th>
-						<th>ADMINISTRADOR</th>
+						<th><a th:href="@{'/usuario/list?sortField=username&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">NOMBRE DE USUARIO</a></th>
+						<th><a th:href="@{'/usuario/list?sortField=name&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">NOMBRE COMPLETO</a></th>
+						<th><a th:href="@{'/usuario/list?sortField=email&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">CORREO ELECTRÓNICO</a></th>
+						<th><a th:href="@{'/usuario/list?sortField=admin&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">ADMINISTRADOR</a></th>
 						<th>ACCIONES</th>
 					</tr>
 				</thead>
@@ -62,6 +101,26 @@
 				</tbody>
 
 			</table>
+		</div>
+		<div>
+		Total Items: <a th:text="${totalItems}" th:href="@{'/usuario/list?sizeNumber=' + ${totalItems}+ '&&stringFind=' + ${keyword}}"></a><!-- pulsando aquí se verían sin paginación -->
+		<a th:if="${currentPage > 1}" th:href="@{/usuario/list?pageNumber=1&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}"> First</a>
+		<span th:unless="${currentPage > 1}">First</span>
+		
+		<a th:if="${currentPage > 1}" th:href="@{'/usuario/list?pageNumber=' + ${currentPage - 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Previous</a>
+		<span th:unless="${currentPage > 1}">Previous</span>
+		
+		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a th:if="${currentPage != i}" th:href="@{'/usuario/list?pageNumber=' + ${i}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}" th:text="${i}"></a>
+			<span th:unless="${currentPage != i}" th:text="${i}"></span>&nbsp;
+		</span>
+		
+		<a th:if="${currentPage < totalPages}" th:href="@{'/usuario/list?pageNumber=' + ${currentPage + 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Next</a>
+		<span th:unless="${currentPage < totalPages}">Next</span>
+		
+		<a th:if="${currentPage < totalPages}" th:href="@{'/usuario/list?pageNumber=' + ${totalPages}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Last</a>
+		<span th:unless="${currentPage < totalPages}">Last</span>
+		
 		</div>
 	</div>
 </body>

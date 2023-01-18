@@ -1,8 +1,10 @@
 package com.jacaranda.tienda.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +33,20 @@ public class UserController {
 	}
 	
 	@GetMapping("/usuario/list")
-	public String userList(Model model) {
-		model.addAttribute("users", userServ.getUsers());
+	public String userList(Model model, @RequestParam("pageNumber")Optional<Integer> pageNumber,
+			@RequestParam("sizeNumber") Optional<Integer> sizeNumber,
+			@RequestParam("sortField") Optional<String> sortField,
+			@RequestParam("stringFind") Optional<String> stringFind) {
+		
+		Page<User> page = userServ.getUsers(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null));
+		
+		model.addAttribute("currentPage", pageNumber.orElse(1));
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("sortField", sortField.orElse("id"));
+		model.addAttribute("keyword", stringFind.orElse(""));
+		
+		model.addAttribute("users", page.getContent());
 		return "userList";
 	}
 	

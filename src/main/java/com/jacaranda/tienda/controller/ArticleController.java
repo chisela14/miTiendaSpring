@@ -37,7 +37,7 @@ public class ArticleController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField.orElse("id"));
-		model.addAttribute("keyword", stringFind.orElse(null));
+		model.addAttribute("keyword", stringFind.orElse(""));
 		
 		model.addAttribute("flowers", page.getContent());
 		
