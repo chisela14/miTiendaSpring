@@ -38,12 +38,12 @@ public class UserController {
 			@RequestParam("sortField") Optional<String> sortField,
 			@RequestParam("stringFind") Optional<String> stringFind) {
 		
-		Page<User> page = userServ.getUsers(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null));
+		Page<User> page = userServ.getUsers(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("username"), stringFind.orElse(null));
 		
 		model.addAttribute("currentPage", pageNumber.orElse(1));
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("sortField", sortField.orElse("id"));
+		model.addAttribute("sortField", sortField.orElse("username"));
 		model.addAttribute("keyword", stringFind.orElse(""));
 		
 		model.addAttribute("users", page.getContent());

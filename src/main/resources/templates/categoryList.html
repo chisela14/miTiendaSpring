@@ -25,27 +25,27 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-dark bg-primary">
+		<nav class="navbar navbar-dark bg-success">
 			<div class="container-fluid">	
 				<div class="d-flex"> 		 
 	  				<a th:href="@{/logout}">
-	  					<button type="button" class="btn btn-primary">
+	  					<button type="button" class="btn btn-success">
 	  					<i class="fa-regular fa-circle-left"></i>
 	  					Salir</button>
 	  				</a>
 		  		 	<a th:href="@{'/usuario/update'(id=${#authentication.name})}">
-		  		 		<button type="button" class="btn btn-primary">
+		  		 		<button type="button" class="btn btn-success">
 		  		 		<i class="fa-regular fa-user"></i>
 		  		 		<span th:text=${#authentication.name}></span>
 		  		 		</button>
 		  		 	</a>
 	  		 	</div> 
 	  		 	<div class="d-flex">
-	   				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/list?stringFind=}"><button type="button" class="btn btn-primary">Usuarios</button></a>
-	   				<a th:href="@{/articulo/list?stringFind=}"><button type="button" class="btn btn-primary">Artículos</button></a>
+	   				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/list?stringFind=}"><button type="button" class="btn btn-success">Usuarios</button></a>
+	   				<a th:href="@{/articulo/list?stringFind=}"><button type="button" class="btn btn-success">Artículos</button></a>
 	   			</div>
 	   			
-	   			<form class="d-flex form-inline" th:action="@{/articulo/list}">
+	   			<form class="d-flex form-inline" th:action="@{/acategoria/list}">
 		   			<div class="input-group" style="float:right">
 			   			<input type="text" name="stringFind" id="stringFind" size="30"
 						th:value="${keyword}" class="form-control input-md border-right-0 border" placeholder="Búsqueda por nombre">
@@ -55,7 +55,7 @@
 			                    <i class="fa fa-times"></i>
 			                </button>
 			            </span>&nbsp;
-						<button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button> &nbsp; 
+						<button type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button> &nbsp; 
 		   			</div>
 	 		 	</form>
 	 		</div>
@@ -79,7 +79,7 @@
 						<td th:text="${color.code}"></td>
 						<td th:text="${color.name}"></td>
 						<td th:text="${color.description}"></td>
-						<td><a th:href="@{'/articulo/list'(sortField=${color.code})}">Ver artículos</a></td>
+						<td><a th:href="@{'/articulo/list'(color=${color.code})}">Ver artículos</a></td>
 						<td sec:authorize="hasAuthority('ADMIN')">
 							<a th:href="@{'/categoria/delete'(id=${color.code})}" >
 								<button id="delete" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
@@ -93,26 +93,46 @@
 
 			</table>
 		</div>
-		<div>
-		Total Items: <a th:text="${totalItems}" th:href="@{'/categoria/list?sizeNumber=' + ${totalItems}+ '&&stringFind=' + ${keyword}}"></a><!-- pulsando aquí se verían sin paginación -->
-		<a th:if="${currentPage > 1}" th:href="@{/categoria/list?pageNumber=1&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}"> First</a>
-		<span th:unless="${currentPage > 1}">First</span>
+		<nav>
+		<ul class="pagination">
+		<li class="page-item">
+		<a class="page-link" th:text="'Total Items: ' + ${totalItems}" th:href="@{'/categoria/list?sizeNumber=' + ${totalItems}+ '&&stringFind=' + ${keyword}}"></a><!-- pulsando aquí se verían sin paginación -->
+		</li>
 		
-		<a th:if="${currentPage > 1}" th:href="@{'/categoria/list?pageNumber=' + ${currentPage - 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Previous</a>
-		<span th:unless="${currentPage > 1}">Previous</span>
+		<li class="page-item">
+			<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/categoria/list?pageNumber=1&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}"> First</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage > 1}">First</span>
+		</li>
 		
-		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-			<a th:if="${currentPage != i}" th:href="@{'/categoria/list?pageNumber=' + ${i}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}" th:text="${i}"></a>
-			<span th:unless="${currentPage != i}" th:text="${i}"></span>&nbsp;
-		</span>
+		<li class="page-item">
+			<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/categoria/list?pageNumber=' + ${currentPage - 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Previous</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage > 1}">Previous</span>
+		</li>
 		
-		<a th:if="${currentPage < totalPages}" th:href="@{'/categoria/list?pageNumber=' + ${currentPage + 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Next</a>
-		<span th:unless="${currentPage < totalPages}">Next</span>
+		<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a class="page-link" th:if="${currentPage != i}" th:href="@{'/categoria/list?pageNumber=' + ${i}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}" th:text="${i}"></a>
+			<span class="page-link" style="color:white;background-color:var(--bs-primary)" th:unless="${currentPage != i}" th:text="${i}"></span>
+		</li>
 		
-		<a th:if="${currentPage < totalPages}" th:href="@{'/categoria/list?pageNumber=' + ${totalPages}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Last</a>
-		<span th:unless="${currentPage < totalPages}">Last</span>
+		<li class="page-item">
+			<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/categoria/list?pageNumber=' + ${currentPage + 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Next</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage < totalPages}">Next</span>
+		</li>
 		
-		</div>
+		<li class="page-item">
+			<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/categoria/list?pageNumber=' + ${totalPages}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Last</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage < totalPages}">Last</span>
+		</li>
+		</ul>
+		</nav>
 	</div>
 </body>
 </html>

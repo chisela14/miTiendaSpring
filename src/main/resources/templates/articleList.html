@@ -101,33 +101,42 @@
 		</div>
 		
 		<nav>
-		Total Items: <a th:text="${totalItems}" th:href="@{'/articulo/list?sizeNumber=' + ${totalItems}+ '&&stringFind=' + ${keyword}}"></a><!-- pulsando aquí se verían sin paginación -->
 		<ul class="pagination">
 		<li class="page-item">
-			<a th:if="${currentPage > 1}" th:href="@{/articulo/list?pageNumber=1&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}"> First</a>
-			<span th:unless="${currentPage > 1}">First</span>
+		<a class="page-link" th:text="'Total Items: ' + ${totalItems}" th:href="@{'/articulo/list?sizeNumber=' + ${totalItems}+ '&&stringFind=' + ${keyword}+ '&&color=' + ${colorCode}}"></a><!-- pulsando aquí se verían sin paginación -->
 		</li>
 		
 		<li class="page-item">
-			<a th:if="${currentPage > 1}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage - 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Previous</a>
-			<span th:unless="${currentPage > 1}">Previous</span>
+			<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/articulo/list?pageNumber=1&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}+ '&&color=' + ${colorCode}}"> First</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage > 1}">First</span>
 		</li>
 		
 		<li class="page-item">
-			<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-				<a th:if="${currentPage != i}" th:href="@{'/articulo/list?pageNumber=' + ${i}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}" th:text="${i}"></a>
-				<span th:unless="${currentPage != i}" th:text="${i}"></span>&nbsp;
-			</span>
+			<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage - 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}+ '&&color=' + ${colorCode}}">Previous</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage > 1}">Previous</span>
+		</li>
+		
+		<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a class="page-link" th:if="${currentPage != i}" th:href="@{'/articulo/list?pageNumber=' + ${i}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}+ '&&color=' + ${colorCode}}" th:text="${i}"></a>
+			<span class="page-link" style="color:white;background-color:var(--bs-primary)" th:unless="${currentPage != i}" th:text="${i}"></span>
 		</li>
 		
 		<li class="page-item">
-			<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage + 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Next</a>
-			<span th:unless="${currentPage < totalPages}">Next</span>
+			<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage + 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}+ '&&color=' + ${colorCode}}">Next</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage < totalPages}">Next</span>
 		</li>
 		
 		<li class="page-item">
-		<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${totalPages}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Last</a>
-		<span th:unless="${currentPage < totalPages}">Last</span>
+			<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${totalPages}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}+ '&&color=' + ${colorCode}}">Last</a>
+		</li>
+		<li class="page-item disabled">
+			<span class="page-link" th:unless="${currentPage < totalPages}">Last</span>
 		</li>
 		</ul>
 		</nav>

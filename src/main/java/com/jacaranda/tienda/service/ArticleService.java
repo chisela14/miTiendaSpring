@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.jacaranda.tienda.model.Article;
+import com.jacaranda.tienda.model.Category;
 import com.jacaranda.tienda.repository.ArticleRepository;
 
 @Service
@@ -15,6 +16,9 @@ public class ArticleService {
 
 	@Autowired
 	ArticleRepository rep;
+	
+	@Autowired
+	CategoryService catServ;
 	
 	public Page<Article> getArticles(int pageNum, int pageSize, String sortField, String stringFind){
 		Pageable pageable = PageRequest.of(pageNum -1, pageSize, Sort.by(sortField).ascending());
@@ -25,6 +29,13 @@ public class ArticleService {
 		}else { 
 			return rep.findByNameLike('%' + stringFind + '%', pageable);//findByNameLike necesita el carácter comodín
 		}
+	}
+	
+	public Page<Article> getArticlesByColor(int pageNum, int pageSize, String sortField, String stringFind, String colorCode){
+		Pageable pageable = PageRequest.of(pageNum -1, pageSize, Sort.by(sortField).ascending());
+		Category color = catServ.get(colorCode);
+		return rep.getByColor(color, pageable);
+		
 	}
 	
 	public Article get(Long code) {

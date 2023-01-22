@@ -25,20 +25,25 @@ public class ArticleController {
 	@Autowired
 	CategoryService catService;
 	
-	@GetMapping("/articulo/list")
+	@GetMapping({"/","/articulo/list"})
 	public String articleList(Model model, @RequestParam("pageNumber")Optional<Integer> pageNumber,
 			@RequestParam("sizeNumber") Optional<Integer> sizeNumber,
 			@RequestParam("sortField") Optional<String> sortField,
-			@RequestParam("stringFind") Optional<String> stringFind) {
+			@RequestParam("stringFind") Optional<String> stringFind,
+			@RequestParam("color") Optional<String> colorCode) {
 		
 		Page<Article> page = serv.getArticles(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null));
+		if(colorCode != null) {
+			page = serv.getArticlesByColor(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null), colorCode.orElse(null));
+		}
 		
 		model.addAttribute("currentPage", pageNumber.orElse(1));
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("sortField", sortField.orElse("id"));
+		model.addAttribute("sortField", sortField.orElse("code"));
 		model.addAttribute("keyword", stringFind.orElse(""));
-		
+		model.addAttribute("colorCode", colorCode.orElse(null));
+	
 		model.addAttribute("flowers", page.getContent());
 		
 		//model.addAttribute("flowers", serv.getArticles());

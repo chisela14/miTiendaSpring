@@ -32,7 +32,7 @@ public class CategoryController {
 		model.addAttribute("currentPage", pageNumber.orElse(1));
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("sortField", sortField.orElse("id"));
+		model.addAttribute("sortField", sortField.orElse("code"));
 		model.addAttribute("keyword", stringFind.orElse(""));
 		
 		model.addAttribute("colors", page.getContent());

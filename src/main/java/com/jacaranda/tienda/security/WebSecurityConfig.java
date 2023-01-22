@@ -54,12 +54,12 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests((requests) -> 
 		{requests
 			.requestMatchers("/css").permitAll()
-			.requestMatchers("/").permitAll()
 			.requestMatchers("/login").permitAll()
 			.requestMatchers("/signUp").permitAll()
 			.requestMatchers("/usuario/verify/**").permitAll()
 			.requestMatchers("/usuario/add").permitAll()
 			//el orden es importante, si ya tiene una regla para admin no reaplicará otra para user
+			.requestMatchers("/").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/articulo/list").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/articulo/**").hasAuthority("ADMIN")
 			

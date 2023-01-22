@@ -14,7 +14,7 @@
             <h1 class="display-1 fw-bold">404</h1>
             <p class="fs-3"> <span class="text-danger">Oops!</span> Página no encontrada</p>
             <p class="lead" th:text="${msg}"></p>
-            <a href="/articulo/list"><button type="button" id="back" name="back" class="btn btn-secondary">Volver</button></a>
+            <a th:href="@{'/articulo/list?sortField=code&&pageNumber='}"><button type="button" id="back" name="back" class="btn btn-secondary">Volver</button></a>
         </div>
     </div>
 </body>
