@@ -1,6 +1,11 @@
 package com.jacaranda.tienda.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,7 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jacaranda.tienda.model.User;
+import com.jacaranda.tienda.model.UserException;
 import com.jacaranda.tienda.service.UserService;
+
+import jakarta.mail.MessagingException;
 
 @Controller
 public class UserController {
@@ -19,13 +27,30 @@ public class UserController {
 	@Autowired
 	UserService userServ;
 	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
 	@GetMapping("/usuario/list")
-	public String userList(Model model) {
-		model.addAttribute("users", userServ.getUsers());
+	public String userList(Model model, @RequestParam("pageNumber")Optional<Integer> pageNumber,
+			@RequestParam("sizeNumber") Optional<Integer> sizeNumber,
+			@RequestParam("sortField") Optional<String> sortField,
+			@RequestParam("stringFind") Optional<String> stringFind) {
+		
+		Page<User> page = userServ.getUsers(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null));
+		
+		model.addAttribute("currentPage", pageNumber.orElse(1));
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("sortField", sortField.orElse("id"));
+		model.addAttribute("keyword", stringFind.orElse(""));
+		
+		model.addAttribute("users", page.getContent());
 		return "userList";
 	}
 	
-	@GetMapping("usuario/add")
+	@GetMapping({"usuario/add", "signUp"})
 	public String addUser(Model model) {
 		User u = new User();
 		model.addAttribute("newUser", u);
@@ -34,7 +59,7 @@ public class UserController {
 	
 	//validaciones que se puedan, la comprobación de que las contraseñas coinciden
 	//le corresponde al cliente
-	@PostMapping("usuario/add")
+	@PostMapping({"usuario/add", "signUp"})
 	public String addSubmit( @Validated @ModelAttribute("newUser") User u,
 			BindingResult bindingResult) {
 		//TO DO la contraseña no coincide
@@ -42,8 +67,21 @@ public class UserController {
 		if (bindingResult.hasErrors()) { 
 			return "addUser";
 		}else {
-			userServ.add(u);
+			try {
+				userServ.add(u, "http://localhost:8080/usuario");
+			} catch (UnsupportedEncodingException | MessagingException | UserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//?
 			return "redirect:/usuario/list";
+		}
+	}
+	@GetMapping("usuario/verify")
+	public String verify (@Param("code") String code) {
+		if (userServ.verify(code)) {
+			return "verifySuccess";
+		} else {
+			return "verifyFail";
 		}
 	}
 	

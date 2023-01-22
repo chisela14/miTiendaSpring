@@ -15,32 +15,65 @@
 <!-- Fontawesome icons -->	
 <script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+	function clearSearch() {
+	window.location = "[[@{/articulo/list}]]";
+	}
+</script>
+
 <title>Artículos</title>
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-dark bg-primary">
-	  		 <form class="form-inline">
-	   			<a th:href="@{/usuario/list}"><button type="button" class="btn btn-primary">Usuarios</button></a>
-	   			<a th:href="@{/categoria/list}"><button type="button" class="btn btn-primary">Categorías</button></a>
-	   			<button type="button" class="btn btn-primary"><span th:text=${#authentication.name}></span></button>
-	   			<a th:href="@{/logout}"><button type="button" class="btn btn-primary">Log Out</button></a>
-	 		 </form>
+		<nav class="navbar navbar-dark bg-success">
+			<div class="container-fluid">	
+				<div class="d-flex"> 		 
+	  				<a th:href="@{/logout}">
+	  					<button type="button" class="btn btn-success">
+	  					<i class="fa-regular fa-circle-left"></i>
+	  					Salir</button>
+	  				</a>
+		  		 	<a th:href="@{'/usuario/update'(id=${#authentication.name})}">
+		  		 		<button type="button" class="btn btn-success">
+		  		 		<i class="fa-regular fa-user"></i>
+		  		 		<span th:text=${#authentication.name}></span>
+		  		 		</button>
+		  		 	</a>
+	  		 	</div> 
+	  		 	<div class="d-flex">
+	   				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/list?stringFind=}"><button type="button" class="btn btn-success">Usuarios</button></a>
+	   				<a th:href="@{/categoria/list?stringFind=}"><button type="button" class="btn btn-success">Categorías</button></a>
+	   			</div>
+	   			
+	   			<form class="d-flex form-inline" th:action="@{/articulo/list}">
+		   			<div class="input-group" style="float:right">
+			   			<input type="text" name="stringFind" id="stringFind" size="30"
+						th:value="${keyword}" class="form-control input-md border-right-0 border" placeholder="Búsqueda por nombre">
+						<span class="input-group-append">
+			                <button class="btn btn-light border-left-0 border" 
+			                	id="btnClear" onclick="clearSearch()" type="button">
+			                    <i class="fa fa-times"></i>
+			                </button>
+			            </span>&nbsp;
+						<button type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button> &nbsp; 
+		   			</div>
+	 		 	</form>
+	 		</div>
 	 	</nav>
  	
 		<div class="starter-template">
 			<h1>Listado de flores</h1>
-			<div align="right"><a href="/articulo/add"><button type="button" class="btn btn-dark"><i class="fa-solid fa-plus"></i></button></a></div>
+			<div align="right" sec:authorize="hasAuthority('ADMIN')"><a href="/articulo/add"><button type="button" class="btn btn-dark"><i class="fa-solid fa-plus"></i></button></a></div>
 			<table class="table">
 				<thead>
 					<tr>
-						<th>CÓDIGO</th>
-						<th>NOMBRE</th>
-						<th>DESCRIPCIÓN</th>
-						<th>PRECIO</th>
-						<th>COLOR</th>
-						<th>STOCK</th>
-						<th>ACCIONES</th>
+						<th><a th:href="@{'/articulo/list?sortField=code&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">CÓDIGO</a></th>
+						<th><a th:href="@{'/articulo/list?sortField=name&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">NOMBRE</a></th>
+						<th><a th:href="@{'/articulo/list?sortField=description&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">DESCRIPCIÓN</a></th>
+						<th><a th:href="@{'/articulo/list?sortField=price&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">PRECIO</a></th>
+						<th><a th:href="@{'/articulo/list?sortField=color&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">COLOR</a></th>
+						<th><a th:href="@{'/articulo/list?sortField=stock&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">STOCK</a></th>
+						<th sec:authorize="hasAuthority('ADMIN')">ACCIONES</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -53,7 +86,7 @@
 						<!-- salto de línea aquí: th:utext y '<br/>'-->
 						<td th:utext="${flower.color.code} + '<br/>' + ${flower.color.name}"></td>
 						<td th:text="${flower.stock}"></td>
-						<td>
+						<td sec:authorize="hasAuthority('ADMIN')">
 							<a th:href="@{'/articulo/delete'(id=${flower.code})}" >
 								<button id="delete" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
 							</a> 
@@ -67,26 +100,37 @@
 			</table>
 		</div>
 		
-		<div>
-		Total Items: <a th:text="${totalItems}"></a><!-- pulsando aquí se verían sin paginación -->
-		<a th:if="${currentPage > 1}" th:href="@{/articulo/list?pageNumber=1}"> First</a>
-		<span th:unless="${currentPage > 1}">First</span>
+		<nav>
+		Total Items: <a th:text="${totalItems}" th:href="@{'/articulo/list?sizeNumber=' + ${totalItems}+ '&&stringFind=' + ${keyword}}"></a><!-- pulsando aquí se verían sin paginación -->
+		<ul class="pagination">
+		<li class="page-item">
+			<a th:if="${currentPage > 1}" th:href="@{/articulo/list?pageNumber=1&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}"> First</a>
+			<span th:unless="${currentPage > 1}">First</span>
+		</li>
 		
-		<a th:if="${currentPage > 1}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage - 1}}">Previous</a>
-		<span th:unless="${currentPage > 1}">Previous</span>
+		<li class="page-item">
+			<a th:if="${currentPage > 1}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage - 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Previous</a>
+			<span th:unless="${currentPage > 1}">Previous</span>
+		</li>
 		
-		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-			<a th:if="${currentPage != i}" th:href="@{'/articulo/list?pageNumber=' + ${i}}" th:text="${i}"></a>
-			<span th:unless="${currentPage != i}" th:text="${i}"></span>&nbsp;
-		</span>
+		<li class="page-item">
+			<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+				<a th:if="${currentPage != i}" th:href="@{'/articulo/list?pageNumber=' + ${i}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}" th:text="${i}"></a>
+				<span th:unless="${currentPage != i}" th:text="${i}"></span>&nbsp;
+			</span>
+		</li>
 		
-		<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage + 1}}">Next</a>
-		<span th:unless="${currentPage < totalPages}">Next</span>
+		<li class="page-item">
+			<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${currentPage + 1}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Next</a>
+			<span th:unless="${currentPage < totalPages}">Next</span>
+		</li>
 		
-		<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${totalPages}}">Last</a>
+		<li class="page-item">
+		<a th:if="${currentPage < totalPages}" th:href="@{'/articulo/list?pageNumber=' + ${totalPages}+ '&&sortField=' + ${sortField}+ '&&stringFind=' + ${keyword}}">Last</a>
 		<span th:unless="${currentPage < totalPages}">Last</span>
-		
-		</div>
+		</li>
+		</ul>
+		</nav>
 	</div>
 </body>
 </html>

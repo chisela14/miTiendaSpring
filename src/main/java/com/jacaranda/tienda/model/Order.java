@@ -19,6 +19,12 @@ public class Order {
 	private long code;
 	@ManyToOne
 	@JoinColumn(
+			name="user_code",
+			insertable=false, updatable = false
+			)
+	private User user;
+	@ManyToOne
+	@JoinColumn(
 			name="flower_code",
 			insertable=false, updatable = false
 			)
@@ -34,6 +40,21 @@ public class Order {
 		this.flower = flower;
 		this.iva = iva;
 		this.date = date;
+	}
+	public long getCode() {
+		return code;
+	}
+	
+	public void setCode(long code) {
+		this.code = code;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Article getFlower() {
@@ -60,10 +81,6 @@ public class Order {
 		this.date = date;
 	}
 
-	public long getCode() {
-		return code;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(code);
@@ -83,8 +100,8 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [code=" + code + ", flower=" + flower + ", iva=" + iva + ", date=" + date + "]";
+		return "Order [code=" + code + ", user=" + user + ", flower=" + flower + ", iva=" + iva + ", date=" + date
+				+ "]";
 	}
 	
-
 }
