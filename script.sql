@@ -147,14 +147,15 @@ create table users (
 	admin VARCHAR(5),
 	verification_code VARCHAR(64),
 	enabled VARCHAR(5),
+	img VARCHAR(200),
     CONSTRAINT PK_users PRIMARY KEY (username)
 ); 
 
 -- INSERT users TABLE 
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('ioliasa', '$2a$10$XjLnSakKnpxzWxSnu/WIbuij2gHDhsnl32vB7KJxE10McLoz2usnS', 'Inmaculada Olias', 'ioliasa@gmail.com', true, null, true); -- 1 admin 0 no admin se guardará
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_inma', '$2a$10$MXfDMkJe4YBow7QbqOMD4Oz2KZ4Sl57T/N2WJBoMFwt.w8pGmmu0C', 'Inma Olias', 'ioliasa@gmail.com', false, null, true);
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('chisela', '$2a$10$IL/f8Y5Dv2r9f/Vt2jfjx.JdmEHjjrbPGq8jq98a6Vj/LetDdkvVS', 'Chisela Colás', 'chisela14@gmail.com', true, null, true);
-insert into users (username, password, name, email, admin, verification_code, enabled) values ('user_chisela', '$2a$10$QxrmcJ7vjMCtfzgms9njmOLq65XgH3360tePAk3zPrsYNapLGP4uy', 'Chisela Colás', 'chisela14@gmail.com', false, null, true);
+insert into users (username, password, name, email, admin, verification_code, enabled, img) values ('ioliasa', '$2a$10$XjLnSakKnpxzWxSnu/WIbuij2gHDhsnl32vB7KJxE10McLoz2usnS', 'Inmaculada Olias', 'ioliasa@gmail.com', true, null, true, 'https://res.cloudinary.com/ddrd0qdr2/image/upload/v1674458044/sample.jpg'); -- 1 admin 0 no admin se guardará
+insert into users (username, password, name, email, admin, verification_code, enabled, img) values ('user_inma', '$2a$10$MXfDMkJe4YBow7QbqOMD4Oz2KZ4Sl57T/N2WJBoMFwt.w8pGmmu0C', 'Inma Olias', 'ioliasa@gmail.com', false, null, true, 'https://res.cloudinary.com/ddrd0qdr2/image/upload/v1674458044/sample.jpg');
+insert into users (username, password, name, email, admin, verification_code, enabled, img) values ('chisela', '$2a$10$IL/f8Y5Dv2r9f/Vt2jfjx.JdmEHjjrbPGq8jq98a6Vj/LetDdkvVS', 'Chisela Colás', 'chisela14@gmail.com', true, null, true, 'https://res.cloudinary.com/ddrd0qdr2/image/upload/v1674458044/sample.jpg');
+insert into users (username, password, name, email, admin, verification_code, enabled, img) values ('user_chisela', '$2a$10$QxrmcJ7vjMCtfzgms9njmOLq65XgH3360tePAk3zPrsYNapLGP4uy', 'Chisela Colás', 'chisela14@gmail.com', false, null, true, 'https://res.cloudinary.com/ddrd0qdr2/image/upload/v1674458044/sample.jpg');
 
 
 create table orders (

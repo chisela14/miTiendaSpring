@@ -32,7 +32,8 @@
 
 </head>
 <body>
-	<form class="form-horizontal" action="#" th:action="@{/usuario/add}" th:object="${newUser}" method="post" onSubmit="return checkPassword(this)">
+	<form class="form-horizontal" action="#" th:action="@{/usuario/add}" th:object="${newUser}" method="post"
+	 onSubmit="return checkPassword(this)" enctype="multipart/form-data">
 		<fieldset>
 
 			<legend>Nuevo usuario</legend>
@@ -69,6 +70,13 @@
 				<label class="col-md-4 control-label" for="confirmPassword">Repite la contraseña:</label>
 				<div class="col-md-4">
 					<input id="confirmPassword" name="confirmPassword" type="password" class="form-control input-md" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="file">Foto de perfil:</label>
+				<div class="col-md-4">
+					<input id="file" name="file" type="file" class="form-control input-md">
 				</div>
 			</div>
 			

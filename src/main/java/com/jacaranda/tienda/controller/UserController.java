@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jacaranda.tienda.model.User;
 import com.jacaranda.tienda.model.UserException;
+import com.jacaranda.tienda.service.FileService;
 import com.jacaranda.tienda.service.UserService;
 
 import jakarta.mail.MessagingException;
@@ -26,6 +28,8 @@ public class UserController {
 
 	@Autowired
 	UserService userServ;
+	@Autowired
+	FileService fileServ;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -61,13 +65,18 @@ public class UserController {
 	//le corresponde al cliente
 	@PostMapping({"usuario/add", "signUp"})
 	public String addSubmit( @Validated @ModelAttribute("newUser") User u,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,
+			@RequestParam(name="file", required = false) MultipartFile file) {
 		//TO DO la contraseña no coincide
 		//puedo hacerlo recogiendo el param por post?
 		if (bindingResult.hasErrors()) { 
 			return "addUser";
 		}else {
 			try {
+				if(!file.isEmpty()) {
+					String url = fileServ.uploadFile(file);
+					u.setImg(url);
+				}
 				userServ.add(u, "http://localhost:8080/usuario");
 			} catch (UnsupportedEncodingException | MessagingException | UserException e) {
 				// TODO Auto-generated catch block
@@ -106,7 +115,12 @@ public class UserController {
 	}
 	
 	@PostMapping("usuario/update")
-	public String updateSubmit(@ModelAttribute("userUp") User user) {
+	public String updateSubmit(@ModelAttribute("userUp") User user,
+			@RequestParam(name="file", required = false) MultipartFile file) {
+		if(!file.isEmpty()) {
+			String url = fileServ.uploadFile(file);
+			user.setImg(url);
+		}
 		userServ.update(user);
 		return "redirect:/usuario/list";
 	}

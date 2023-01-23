@@ -30,6 +30,7 @@ public class User implements UserDetails {
 	@JoinColumn(name="verification_code")
 	private String verificationCode;
 	private boolean enabled;
+	private String img;
 	@OneToMany(mappedBy= "user", cascade= CascadeType.ALL, orphanRemoval = true)
 	private List<Order> orders = new ArrayList<>();
 
@@ -131,6 +132,14 @@ public class User implements UserDetails {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public List<Order> getOrders() {

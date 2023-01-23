@@ -32,7 +32,8 @@
 
 </head>
 <body>
-	<form class="form-horizontal" action="#" th:action="@{/usuario/update}" th:object="${userUp}" method="post" onSubmit="return checkPassword(this)">
+	<form class="form-horizontal" action="#" th:action="@{/usuario/update}" th:object="${userUp}" method="post" 
+	onSubmit="return checkPassword(this)" enctype="multipart/form-data">
 		<fieldset>
 
 			<legend>Editar usuario</legend>
@@ -76,6 +77,13 @@
 				<label class="col-md-4 control-label" for="admin">Administrador:</label>
 				<div class="col-md-4">
 					<input id="admin" name="admin" type="text" th:field= "*{admin}" value="userUp.admin" class="form-control input-md" readonly>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="file">Foto de perfil:</label>
+				<div class="col-md-4">
+					<input id="file" name="file" type="file" class="form-control input-md">
 				</div>
 			</div>
 			

@@ -35,7 +35,8 @@
 	  				</a>
 		  		 	<a th:href="@{'/usuario/update'(id=${#authentication.name})}">
 		  		 		<button type="button" class="btn btn-success">
-		  		 		<i class="fa-regular fa-user"></i>
+		  		 		<!-- <i class="fa-regular fa-user"></i>  -->
+		  		 		<img th:src="${#authentication.principal.img}">
 		  		 		<span th:text=${#authentication.name}></span>
 		  		 		</button>
 		  		 	</a>
