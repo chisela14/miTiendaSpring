@@ -31,9 +31,9 @@ public class ArticleController {
 			@RequestParam("sortField") Optional<String> sortField,
 			@RequestParam("stringFind") Optional<String> stringFind,
 			@RequestParam("color") Optional<String> colorCode) {
-		
+		System.out.println(colorCode);
 		Page<Article> page = serv.getArticles(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null));
-		if(colorCode != null) {
+		if(!colorCode.isEmpty()) {
 			page = serv.getArticlesByColor(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null), colorCode.orElse(null));
 		}
 		
