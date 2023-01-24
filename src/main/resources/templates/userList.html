@@ -36,12 +36,13 @@
 		  		 	<a th:href="@{'/usuario/update'(id=${#authentication.name})}">
 		  		 		<button type="button" class="btn btn-success">
 		  		 		<!--  <i class="fa-regular fa-user"></i> -->
-		  		 		<img th:src="${#authentication.principal.img}">
+		  		 		<img th:src="${#authentication.principal.img}" width="30">
 		  		 		<span th:text=${#authentication.name}></span>
 		  		 		</button>
 		  		 	</a>
 	  		 	</div> 
 	  		 	<div class="d-flex">
+	  		 		<button class="btn btn-light">Usuarios</button>
 	   				<a th:href="@{/categoria/list?stringFind=}"><button type="button" class="btn btn-success">Categorías</button></a>
 	   				<a th:href="@{/articulo/list?stringFind=}"><button type="button" class="btn btn-success">Artículos</button></a>
 	   			</div>

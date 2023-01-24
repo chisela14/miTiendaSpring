@@ -36,7 +36,7 @@
 		  		 	<a th:href="@{'/usuario/update'(id=${#authentication.name})}">
 		  		 		<button type="button" class="btn btn-success">
 		  		 		<!-- <i class="fa-regular fa-user"></i>  -->
-		  		 		<img th:src="${#authentication.principal.img}">
+		  		 		<img th:src="${#authentication.principal.img}" width="30">
 		  		 		<span th:text=${#authentication.name}></span>
 		  		 		</button>
 		  		 	</a>
@@ -44,10 +44,11 @@
 	  		 	<div class="d-flex">
 	   				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/list?stringFind=}"><button type="button" class="btn btn-success">Usuarios</button></a>
 	   				<a th:href="@{/categoria/list?stringFind=}"><button type="button" class="btn btn-success">Categorías</button></a>
+	   				<button class="btn btn-light">Artículos</button>
 	   			</div>
 	   			
 	   			<form class="d-flex form-inline" th:action="@{/articulo/list}">
-		   			<div class="input-group" style="float:right">
+		   			<div class="input-group">
 			   			<input type="text" name="stringFind" id="stringFind" size="30"
 						th:value="${keyword}" class="form-control input-md border-right-0 border" placeholder="Búsqueda por nombre">
 						<span class="input-group-append">
@@ -59,6 +60,9 @@
 						<button type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button> &nbsp; 
 		   			</div>
 	 		 	</form>
+	 		 	<div class="d-flex" style="float:right">
+	 		 		<a sec:authorize="hasAuthority('USER')" th:href="@{/carrito}"><button type="button" class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button></a>
+	 		 	</div>
 	 		</div>
 	 	</nav>
  	
@@ -75,6 +79,7 @@
 						<th><a th:href="@{'/articulo/list?sortField=color&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">COLOR</a></th>
 						<th><a th:href="@{'/articulo/list?sortField=stock&&pageNumber=' + ${currentPage} + '&&stringFind=' + ${keyword}}">STOCK</a></th>
 						<th sec:authorize="hasAuthority('ADMIN')">ACCIONES</th>
+						<th sec:authorize="hasAuthority('USER')">COMPRAR</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -94,6 +99,20 @@
 							<a th:href="@{'/articulo/update'(id=${flower.code})}" >
 								<button id="update" name="update" class="btn btn-primary"><i class="fa-solid fa-pen"></i></button>
 							</a>
+						</td>
+						<td sec:authorize="hasAuthority('USER')">
+							<form th:action="@{/carrito/add}" method="post">
+								<input type="number" id="article" name="article" value="${flower.code}" hidden>
+								
+								<span th:unless="${flower.stock > 0}">No disponible</span>
+								<div class="input-group">
+									<input th:if="${flower.stock > 0}" type="number" class="form-control input-md border-right-0 border" 
+											size="1" th:max="${flower.stock}" th:min="1" id="quantity" name="quantity">
+									<span class="input-group-append">
+										<button th:if="${flower.stock > 0}" class="btn btn-primary"><i class="fa-solid fa-cart-shopping"></i></button>
+									</span>
+								</div>
+							</form>
 						</td>
 					</tr>
 				</tbody>

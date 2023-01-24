@@ -36,17 +36,18 @@
 		  		 	<a th:href="@{'/usuario/update'(id=${#authentication.name})}">
 		  		 		<button type="button" class="btn btn-success">
 		  		 		<!-- <i class="fa-regular fa-user"></i>  -->
-		  		 		<img th:src="${#authentication.principal.img}">
+		  		 		<img th:src="${#authentication.principal.img}" width="30">
 		  		 		<span th:text=${#authentication.name}></span>
 		  		 		</button>
 		  		 	</a>
 	  		 	</div> 
 	  		 	<div class="d-flex">
 	   				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/list?stringFind=}"><button type="button" class="btn btn-success">Usuarios</button></a>
+	   				<button class="btn btn-light">Categorías</button>
 	   				<a th:href="@{/articulo/list?stringFind=}"><button type="button" class="btn btn-success">Artículos</button></a>
 	   			</div>
 	   			
-	   			<form class="d-flex form-inline" th:action="@{/acategoria/list}">
+	   			<form class="d-flex form-inline" th:action="@{/categoria/list}">
 		   			<div class="input-group" style="float:right">
 			   			<input type="text" name="stringFind" id="stringFind" size="30"
 						th:value="${keyword}" class="form-control input-md border-right-0 border" placeholder="Búsqueda por nombre">

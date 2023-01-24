@@ -29,18 +29,22 @@ public class Order {
 			insertable=false, updatable = false
 			)
 	private Article flower;
-	private int iva;
+	private static int iva = 21;
 	private LocalDate date;
+	private int quantity; 
 
 	public Order() {
 		
 	}
-
-	public Order(Article flower, int iva, LocalDate date) {
+	
+	public Order(User user, Article flower, LocalDate date, int quantity) {
+		this.user = user;
 		this.flower = flower;
-		this.iva = iva;
 		this.date = date;
+		this.quantity = quantity;
 	}
+
+
 	public long getCode() {
 		return code;
 	}
@@ -68,9 +72,9 @@ public class Order {
 	public int getIva() {
 		return iva;
 	}
-
+	//el atributo iva es estático
 	public void setIva(int iva) {
-		this.iva = iva;
+		Order.iva = iva;
 	}
 
 	public LocalDate getDate() {
@@ -79,6 +83,14 @@ public class Order {
 
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	@Override

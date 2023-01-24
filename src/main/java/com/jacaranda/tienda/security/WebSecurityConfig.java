@@ -66,8 +66,9 @@ public class WebSecurityConfig {
 			.requestMatchers("/usuario/update").hasAnyAuthority("USER", "ADMIN") //controlar en la plantilla
 			.requestMatchers("/usuario/**").hasAuthority("ADMIN")
 			
-			.requestMatchers("/category/list").hasAnyAuthority("USER", "ADMIN")
-			.requestMatchers("/category/**").hasAuthority("ADMIN")
+			.requestMatchers("/categoria/list").hasAnyAuthority("USER", "ADMIN")
+			.requestMatchers("/categoria/**").hasAuthority("ADMIN")
+			.requestMatchers("/carrito/**").hasAuthority("USER")
 			.anyRequest().authenticated();
 		})
 		.formLogin((form) -> form
