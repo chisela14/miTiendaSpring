@@ -164,21 +164,22 @@ create table orders (
 	flower_code INT,
 	iva INT,
 	date DATE,
+	quantity INT,
     CONSTRAINT PK_orders PRIMARY KEY (code),
     CONSTRAINT FK_orders FOREIGN KEY (user_code) REFERENCES miTiendaSpringColasChisela.users (username) ON DELETE CASCADE,
     CONSTRAINT FK2_orders FOREIGN KEY (flower_code) REFERENCES miTiendaSpringColasChisela.flower (code) ON DELETE CASCADE
 );
 -- INSERT orders TABLE 
-insert into orders (code, user_code, flower_code, iva, date) values (1, 'chisela', 76, 21, '2019-03-29');
-insert into orders (code, user_code, flower_code, iva, date) values (2, 'chisela', 95, 21, '2011-11-12');
-insert into orders (code, user_code, flower_code, iva, date) values (3, 'chisela', 65, 10, '2022-07-15');
-insert into orders (code, user_code, flower_code, iva, date) values (4, 'chisela', 48, 21, '2013-11-28');
-insert into orders (code, user_code, flower_code, iva, date) values (5, 'ioliasa', 25, 21, '2021-08-31');
-insert into orders (code, user_code, flower_code, iva, date) values (6, 'ioliasa', 24, 21, '2017-10-21');
-insert into orders (code, user_code, flower_code, iva, date) values (7, 'ioliasa', 43, 21, '2021-06-10');
-insert into orders (code, user_code, flower_code, iva, date) values (8, 'ioliasa', 54, 0, '2022-01-17');
-insert into orders (code, user_code, flower_code, iva, date) values (9, 'user_inma', 36, 10, '2018-11-12');
-insert into orders (code, user_code, flower_code, iva, date) values (10, 'user_chisela', 93, 4, '2017-05-24');
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (1, 'chisela', 76, 21, '2019-03-29', 2);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (2, 'chisela', 95, 21, '2011-11-12', 5);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (3, 'chisela', 65, 10, '2022-07-15', 1);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (4, 'chisela', 48, 21, '2013-11-28', 5);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (5, 'ioliasa', 25, 21, '2021-08-31', 4);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (6, 'ioliasa', 24, 21, '2017-10-21', 6);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (7, 'ioliasa', 43, 21, '2021-06-10', 3);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (8, 'ioliasa', 54, 0, '2022-01-17', 1);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (9, 'user_inma', 36, 10, '2018-11-12', 4);
+insert into orders (code, user_code, flower_code, iva, date, quantity) values (10, 'user_chisela', 93, 4, '2017-05-24', 7);
 
 ALTER TABLE orders MODIFY code INT AUTO_INCREMENT, AUTO_INCREMENT=11;
 
