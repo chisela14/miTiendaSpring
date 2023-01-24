@@ -21,5 +21,14 @@ public class Cart {
 		this.articles = articles;
 	}
 	
+	public float getTotal() {
+		float result = 0;
+		for(Article article: articles.keySet()) {
+			int quantity = articles.get(article);
+			result += article.getPrice()*quantity;
+		}
+		return result;
+	}
+	
 	
 }

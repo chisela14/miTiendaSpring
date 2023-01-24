@@ -102,7 +102,7 @@
 						</td>
 						<td sec:authorize="hasAuthority('USER')">
 							<form th:action="@{/carrito/add}" method="post">
-								<input type="number" id="article" name="article" value="${flower.code}" hidden>
+								<input type="text" id="article" name="article" th:value="${flower.code}" hidden>
 								
 								<span th:unless="${flower.stock > 0}">No disponible</span>
 								<div class="input-group">

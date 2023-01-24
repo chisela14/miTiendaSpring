@@ -9,6 +9,9 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 	
+<!-- Fontawesome icons -->	
+<script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
+	
 <title>Carrito</title>
 
 <script>
@@ -28,7 +31,7 @@
 </script>
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<nav class="navbar navbar-dark bg-success">
 			<div class="container-fluid">	
 				<div class="d-flex"> 		 
@@ -69,14 +72,18 @@
 	 		 	</div>
 	 		</div>
 	 	</nav>
- 		<div th:unless="${carro.size > 0}">No hay artículos en el carrito</div>
-		<div class="starter-template" th:if="${carro.size > 0}">
+ 		<div class="starter-template" th:unless="${carro.size() > 0}">
+ 			<h2>No hay artículos en el carrito</h2>
+ 			<a th:href="@{'/articulo/list'}"><button type="button" class="btn btn-secondary">Volver</button></a>
+ 		</div>
+		<div class="starter-template" th:if="${carro.size() > 0}">
 			<h1>Artículos en el carrito</h1>
 			<div align="right">
-				<form th:action="${/carrito/clear" method="post">
+				<form th:action="@{/carrito/clear}" method="post">
 				<button class="btn btn-dark"><i class="fa-solid fa-delete-left"></i></button>
 				</form>
 			</div>
+			
 			<table class="table">
 				<thead>
 					<tr>
@@ -86,24 +93,30 @@
 				</thead>
 				<tbody>
 					<tr th:each="item :${carro}">
-						<td th:text="${item.getKey().code}"></td>
+						<td th:text="${item.key}"></td>
 						<td>
-							<form th:action="@{/carrito/add}" method="post">
-								<input type="number" id="article" name="article" value="${item.getKey().code}" hidden>
-								
+							<form th:action="@{/carrito/update}" method="post">
+								<input type="number" id="article" name="article" th:value="${item.key.code}" hidden>
 								<div class="input-group">
-									<input th:if="${item.getKey().stock > 0}" type="number" class="form-control input-md border-right-0 border" 
-											size="1" th:max="${item.getKey().stock}" th:min="1" id="quantity" name="quantity" th:value="${item.getValue()}">
+									<input th:if="${item.key.stock > 0}" type="number" class="form-control input-md border-right-0 border" 
+										size="1" th:max="${item.key.stock}" th:min="1" id="quantity" name="quantity" th:value="${item.value}">
 									<span class="input-group-append">
-										<button th:if="${flower.stock > 0}" class="btn btn-primary"><i class="fa-solid fa-cart-shopping"></i></button>
+										<button class="btn btn-warning"><i class="fa-solid fa-rotate"></i></button>
 									</span>
 								</div>
 							</form>
 						</td>
 					</tr>
+					<tr>
+						<td th:text="'Total: ' + ${total} + '€'"></td>
+					</tr>
 				</tbody>
-
 			</table>
+			<form th:action="@{/carrito/purchase}" method="post">
+				<button type="button" class="btn btn-secondary" th:href="@{'/articulo/list'}">Volver</button> <!-- lo meto dentro de form por estilo en html -->
+				<button class="btn btn-primary" style="float:center">Comprar</button>
+			</form>
 		</div>
+	</div>
 </body>
 </html>
