@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jacaranda.tienda.model.User;
 import com.jacaranda.tienda.model.UserException;
 import com.jacaranda.tienda.service.FileService;
+import com.jacaranda.tienda.service.OrderService;
 import com.jacaranda.tienda.service.UserService;
 
 import jakarta.mail.MessagingException;
@@ -30,6 +32,8 @@ public class UserController {
 	UserService userServ;
 	@Autowired
 	FileService fileServ;
+	@Autowired 
+	OrderService orderServ;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -139,6 +143,10 @@ public class UserController {
 		return "redirect:/usuario/list";
 	}
 	
-
+	@GetMapping("usuario/orders")
+	public String showOrders(Model model, @AuthenticationPrincipal User user) {
+		model.addAttribute("orders", orderServ.getOrders(user));
+		return "userOrders";
+	}
 
 }

@@ -63,7 +63,8 @@ public class WebSecurityConfig {
 			.requestMatchers("/articulo/list").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/articulo/**").hasAuthority("ADMIN")
 			
-			.requestMatchers("/usuario/update").hasAnyAuthority("USER", "ADMIN") //controlar en la plantilla
+			.requestMatchers("/usuario/update").hasAnyAuthority("USER", "ADMIN")//controlar en la plantilla
+			.requestMatchers("/usuario/orders").hasAnyAuthority("USER", "ADMIN")//controlar en la plantilla
 			.requestMatchers("/usuario/**").hasAuthority("ADMIN")
 			
 			.requestMatchers("/categoria/list").hasAnyAuthority("USER", "ADMIN")

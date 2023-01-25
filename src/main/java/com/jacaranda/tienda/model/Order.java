@@ -29,7 +29,8 @@ public class Order {
 			insertable=false, updatable = false
 			)
 	private Article flower;
-	private static int iva = 21;
+	@JoinColumn(name="iva")
+	private static final int IVA = 21;
 	private LocalDate date;
 	private int quantity; 
 
@@ -37,10 +38,10 @@ public class Order {
 		
 	}
 	
-	public Order(User user, Article flower, LocalDate date, int quantity) {
+	public Order(User user, Article flower, int quantity) {
 		this.user = user;
 		this.flower = flower;
-		this.date = date;
+		this.date = LocalDate.now();
 		this.quantity = quantity;
 	}
 
@@ -70,11 +71,7 @@ public class Order {
 	}
 
 	public int getIva() {
-		return iva;
-	}
-	//el atributo iva es estático
-	public void setIva(int iva) {
-		Order.iva = iva;
+		return IVA;
 	}
 
 	public LocalDate getDate() {
@@ -112,7 +109,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [code=" + code + ", user=" + user + ", flower=" + flower + ", iva=" + iva + ", date=" + date
+		return "Order [code=" + code + ", user=" + user + ", flower=" + flower + ", iva=" + IVA + ", date=" + date
 				+ "]";
 	}
 	
