@@ -11,6 +11,8 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+	
 	
 <!-- Fontawesome icons -->	
 <script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
@@ -29,15 +31,15 @@
 	  				</a>
 		  		 	
 		  		 	<div class="dropdown">
-		  		 		<button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+		  		 		<button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
 			  		 		<!-- <i class="fa-regular fa-user"></i>  -->
 			  		 		<img th:src="${#authentication.principal.img}" width="30">
 			  		 		<span th:text=${#authentication.name}></span>
 		  		 		</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<div class="dropdown-menu">
 						    <a class="dropdown-item" th:href="@{'/usuario/update'(id=${#authentication.name})}">Modificar datos</a>
-						    <a class="dropdown-item" href="#">Modificar contraseña (sin enlace)</a>
-						    <a class="dropdown-item" th:href="@{'/usuario/orders'(id=${#authentication.name})}">Ver historial de pedidos</a>
+						    <a class="dropdown-item" th:href="@{'/usuario/update/password'(id=${#authentication.name})}">Modificar contraseña</a>
+						    <a class="dropdown-item" th:href="@{'/usuario/orders'}">Ver historial de pedidos</a>
 						</div>
 					</div>
 	  		 	</div> 
@@ -67,7 +69,9 @@
 				<tbody>
 					<tr th:each="order:${orders}">
 						<td th:text="${order.code}"></td>
-						<td th:text="${order.purchases}"></td>
+						<td>
+							<p th:each="purchase:${order.purchases}" th:text="${purchase}"></p>
+						</td>
 						<td th:text="${order.iva}"></td>
 						<td th:text="${order.date}"></td>
 					</tr>

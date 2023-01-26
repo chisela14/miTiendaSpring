@@ -16,16 +16,19 @@ import com.jacaranda.tienda.model.User;
 import com.jacaranda.tienda.service.ArticleService;
 import com.jacaranda.tienda.service.OrderService;
 import com.jacaranda.tienda.service.PurchaseService;
+import com.jacaranda.tienda.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CartController {
 	
-	@Autowired
-	ArticleService artServ;
 	@Autowired 
 	HttpSession session;
+	@Autowired
+	ArticleService artServ;
+	@Autowired
+	UserService userServ;
 	@Autowired
 	OrderService ordServ;
 	@Autowired
@@ -79,10 +82,13 @@ public class CartController {
 	}
 	
 	@PostMapping("/carrito/purchase")
-	public String purchase(@AuthenticationPrincipal User user) {
+	public String purchase(@AuthenticationPrincipal User u) {
 		Cart c = (Cart) session.getAttribute("cart");
+		User user = userServ.get(u.getUsername());
 		Order order = new Order(user);
+		System.out.println(user);
 		order = ordServ.add(order);
+		System.out.println(order);
 		
 		for(Article article: c.getArticles().keySet()) {
 			int quantity = c.getArticles().get(article);

@@ -174,7 +174,7 @@ insert into orders (code, user_code, iva, date) values (4, 'ioliasa', 21, '2017-
 insert into orders (code, user_code, iva, date) values (5, 'user_inma', 10, '2018-11-12');
 insert into orders (code, user_code, iva, date) values (6, 'user_chisela', 4, '2017-05-24');
 
-ALTER TABLE orders MODIFY code INT AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE orders MODIFY code INT AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 create table purchase (
 	order_code INT(11), 

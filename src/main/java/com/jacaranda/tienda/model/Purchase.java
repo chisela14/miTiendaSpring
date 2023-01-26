@@ -84,7 +84,7 @@ public class Purchase {
 
 	@Override
 	public String toString() {
-		return "Purchase [order=" + order + ", flower=" + flower + ", quantity=" + quantity + "]";
+		return "Artículo: " + flower + " cant. - " + quantity;
 	}
 	
 	
