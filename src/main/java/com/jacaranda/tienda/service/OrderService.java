@@ -19,10 +19,12 @@ public class OrderService {
 	@Autowired
 	UserService userServ;
 	
-	public void add(Order o) {
-		rep.save(o);
+	public Order add(Order o) {
+		return rep.save(o);
 	}
+	
 	public List<Order> getOrders(User user){
 		return rep.findByUser(user);
 	}
+	
 }

@@ -68,9 +68,26 @@ public class UserService implements UserDetailsService {
 	public void delete(User u) {
 		rep.delete(u);
 	}
-	
-	public User update(User u) {
-		return rep.save(u);
+	//boolean true para cambiar la img
+	public User update(User u, boolean img) {
+		User user = get(u.getUsername());
+		
+		//añadir contraseña encriptada
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(u.getPassword());
+		try {
+			user.setPassword(encodedPassword);
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		user.setEnabled(true);
+		if(!img) {
+			user.setImg(u.getImg());
+		}
+		
+		return rep.save(user);
 	}
 	
 	public boolean checkExist(User s) {

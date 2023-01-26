@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jacaranda.tienda.model.Article;
 import com.jacaranda.tienda.model.Cart;
 import com.jacaranda.tienda.model.Order;
+import com.jacaranda.tienda.model.Purchase;
 import com.jacaranda.tienda.model.User;
 import com.jacaranda.tienda.service.ArticleService;
 import com.jacaranda.tienda.service.OrderService;
+import com.jacaranda.tienda.service.PurchaseService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -26,6 +28,8 @@ public class CartController {
 	HttpSession session;
 	@Autowired
 	OrderService ordServ;
+	@Autowired
+	PurchaseService purServ;
 	
 	//botón en navegación y redirección de otros controladores
 	@GetMapping("/carrito")
@@ -77,17 +81,18 @@ public class CartController {
 	@PostMapping("/carrito/purchase")
 	public String purchase(@AuthenticationPrincipal User user) {
 		Cart c = (Cart) session.getAttribute("cart");
+		Order order = new Order(user);
+		order = ordServ.add(order);
 		
 		for(Article article: c.getArticles().keySet()) {
 			int quantity = c.getArticles().get(article);
-			System.out.println(quantity);
 			//ajustar el stock
 			Article bdArt = artServ.get(article.getCode());
 			bdArt.setStock(bdArt.getStock()- quantity);
 			artServ.update(bdArt);
 			//guardar el pedido en la base de datos
-			Order order = new Order(user, bdArt, quantity);
-			ordServ.add(order);
+			Purchase p = new Purchase(order, bdArt, quantity);
+			purServ.add(p);
 		}
 		
 		c.getArticles().clear();

@@ -1,14 +1,18 @@
 package com.jacaranda.tienda.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,26 +27,19 @@ public class Order {
 			insertable=false, updatable = false
 			)
 	private User user;
-	@ManyToOne
-	@JoinColumn(
-			name="flower_code",
-			insertable=false, updatable = false
-			)
-	private Article flower;
 	@JoinColumn(name="iva")
 	private static final int IVA = 21;
 	private LocalDate date;
-	private int quantity; 
+	@OneToMany(mappedBy= "order", cascade= CascadeType.ALL, orphanRemoval = true)
+	private List<Purchase> purchases = new ArrayList<>();
 
 	public Order() {
 		
 	}
 	
-	public Order(User user, Article flower, int quantity) {
+	public Order(User user) {
 		this.user = user;
-		this.flower = flower;
 		this.date = LocalDate.now();
-		this.quantity = quantity;
 	}
 
 
@@ -62,14 +59,6 @@ public class Order {
 		this.user = user;
 	}
 
-	public Article getFlower() {
-		return flower;
-	}
-
-	public void setFlower(Article flower) {
-		this.flower = flower;
-	}
-
 	public int getIva() {
 		return IVA;
 	}
@@ -82,12 +71,12 @@ public class Order {
 		this.date = date;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public List<Purchase> getPurchases() {
+		return purchases;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override
@@ -109,8 +98,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [code=" + code + ", user=" + user + ", flower=" + flower + ", iva=" + IVA + ", date=" + date
-				+ "]";
+		return "Order [code=" + code + ", user=" + user + ", iva=" + IVA + ", date=" + date + "]";
 	}
 	
 }

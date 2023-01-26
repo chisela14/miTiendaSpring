@@ -125,8 +125,20 @@ public class UserController {
 			String url = fileServ.uploadFile(file);
 			user.setImg(url);
 		}
-		userServ.update(user);
-		return "redirect:/usuario/list";
+		userServ.update(user, false);
+		return "redirect:/articulo/list";
+	}
+	
+	@GetMapping("usuario/update/password")
+	public String updateUserPassword(Model model, @RequestParam("id") String username) {
+		User user = userServ.get(username);
+		model.addAttribute("userPwd", user);
+		return "updateUserPassword";
+	}
+	@PostMapping("usuario/update/password")
+	public String updatePasswordSubmit(@ModelAttribute("userPwd") User user) {
+		userServ.update(user, true);
+		return "redirect:/articulo/list";
 	}
 	
 	@GetMapping("usuario/admin")
@@ -139,7 +151,7 @@ public class UserController {
 	//cuidado con que la contraseña se guarde vacía porque no entrará por aquí
 	@PostMapping("usuario/admin")
 	public String adminSubmit(@ModelAttribute("userAdm") User user) {
-		userServ.update(user);
+		userServ.update(user, true);
 		return "redirect:/usuario/list";
 	}
 	

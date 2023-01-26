@@ -59,19 +59,17 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>ARTÍCULO</th>
+						<th>ARTÍCULOS</th>
 						<th>IVA</th>
 						<th>FECHA</th>
-						<th>CANTIDAD</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="order:${orders}">
 						<td th:text="${order.code}"></td>
-						<td th:text="${order.flower}"></td>
+						<td th:text="${order.purchases}"></td>
 						<td th:text="${order.iva}"></td>
 						<td th:text="${order.date}"></td>
-						<td th:text="${order.quantity}"></td>
 					</tr>
 				</tbody>
 

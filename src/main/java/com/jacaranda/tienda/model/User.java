@@ -32,7 +32,7 @@ public class User implements UserDetails {
 	private boolean enabled;
 	private String img;
 	@OneToMany(mappedBy= "user", cascade= CascadeType.ALL, orphanRemoval = true)
-	private List<Order> orders = new ArrayList<>();
+	private List<Order> userOrders = new ArrayList<>();
 
 	public User() {
 		
@@ -143,11 +143,11 @@ public class User implements UserDetails {
 	}
 
 	public List<Order> getOrders() {
-		return orders;
+		return userOrders;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrders(List<Order> userOrders) {
+		this.userOrders = userOrders;
 	}
 
 	@Override

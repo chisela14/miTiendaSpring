@@ -30,7 +30,7 @@ public class Article {
 		private Category color;
 		private int stock;
 		@OneToMany(mappedBy= "flower", cascade= CascadeType.ALL, orphanRemoval = true)
-		private List<Order> orders = new ArrayList<>();
+		private List<Purchase> purchases = new ArrayList<>();
 		
 		public Article() {
 			
@@ -92,12 +92,12 @@ public class Article {
 			this.stock = stock;
 		}
 
-		public List<Order> getOrders() {
-			return orders;
+		public List<Purchase> getPurchases() {
+			return purchases;
 		}
 
-		public void setOrders(List<Order> orders) {
-			this.orders = orders;
+		public void setPurchases(List<Purchase> purchases) {
+			this.purchases = purchases;
 		}
 
 		@Override
