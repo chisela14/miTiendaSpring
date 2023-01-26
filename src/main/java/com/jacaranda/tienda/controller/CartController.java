@@ -86,9 +86,7 @@ public class CartController {
 		Cart c = (Cart) session.getAttribute("cart");
 		User user = userServ.get(u.getUsername());
 		Order order = new Order(user);
-		System.out.println(user);
 		order = ordServ.add(order);
-		System.out.println(order);
 		
 		for(Article article: c.getArticles().keySet()) {
 			int quantity = c.getArticles().get(article);

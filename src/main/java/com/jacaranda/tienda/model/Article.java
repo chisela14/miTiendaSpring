@@ -14,7 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-//jaja perdí 3 horas un día porque me faltaba el setter del id
 
 @Entity
 @Table(name="flower")

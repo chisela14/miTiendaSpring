@@ -16,18 +16,12 @@ public class Purchase {
 	
 	@Id
 	@ManyToOne
-	@JoinColumn(
-			name="order_code",
-			insertable=false, updatable = false
-			)
+	@JoinColumn(name="order_code")
 	private Order order;
 	
 	@Id
 	@ManyToOne
-	@JoinColumn(
-			name="flower_code",
-			insertable=false, updatable = false
-			)
+	@JoinColumn(name="flower_code")
 	private Article flower;
 	private int quantity;
 
