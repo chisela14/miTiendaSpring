@@ -124,8 +124,11 @@ public class UserController {
 		if(!file.isEmpty()) {
 			String url = fileServ.uploadFile(file);
 			user.setImg(url);
+			userServ.update(user, false);
+		}else {
+			userServ.update(user, true);
 		}
-		userServ.update(user, false);
+		
 		return "redirect:/articulo/list";
 	}
 	

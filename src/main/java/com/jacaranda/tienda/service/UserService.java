@@ -76,13 +76,16 @@ public class UserService implements UserDetailsService {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(u.getPassword());
 		try {
+			//modificar atributos
 			user.setPassword(encodedPassword);
+			user.setName(u.getName());
+			user.setEmail(u.getEmail());
+			user.setEnabled(true);
 		} catch (UserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		user.setEnabled(true);
 		if(!img) {
 			user.setImg(u.getImg());
 		}
