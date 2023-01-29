@@ -28,3 +28,5 @@ Vamos a realizar una tienda con Spring, para ello seguiremos con la misma base d
 - Sólo los usuarios administradores tendrán acceso a añadir, modificar y borrar categorías y artículos.
 - Tanto el usuario normal como el administrador podrán ver la lista de categorías y artículos. Las categorías deberán tener un botón para ver la lista de artículos.
 - Implementa un menú con la opción de listado de articulos, categorías y usuario (sólo para el administrador) y logout donde se muestre también el nombre del usuario y la posibilidad de cambiar el usuario.
+## Tercer Sprint
+- Implementar el carro de la compra con sesiones para el rol de usuario.
