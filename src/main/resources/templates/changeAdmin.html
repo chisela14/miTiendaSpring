@@ -11,10 +11,47 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+	
+<!-- Fontawesome icons -->	
+<script src="https://kit.fontawesome.com/0a5e42de01.js" crossorigin="anonymous"></script>
 
 <title>Editar usuario</title>
 </head>
 <body>
+<nav class="navbar navbar-dark bg-success">
+			<div class="container-fluid">	
+				<div class="d-flex"> 		 
+	  				<a th:href="@{/logout}">
+	  					<button type="button" class="btn btn-success">
+	  					<i class="fa-regular fa-circle-left"></i>
+	  					Salir</button>
+	  				</a>
+		  		 	
+		  		 	<div class="dropdown">
+		  		 		<button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+			  		 		<img th:src="${#authentication.principal.img}" width="30">
+			  		 		<i th:unless="${#authentication.principal.img}" class="fa-regular fa-user"></i>
+			  		 		<span th:text=${#authentication.name}></span>
+		  		 		</button>
+						<div class="dropdown-menu">
+						    <a class="dropdown-item" th:href="@{'/usuario/update'(id=${#authentication.name})}">Modificar datos</a>
+						    <a class="dropdown-item" th:href="@{'/usuario/update/password'(id=${#authentication.name})}">Modificar contraseña</a>
+						    <a class="dropdown-item" th:href="@{'/usuario/orders'}">Ver historial de pedidos</a>
+						</div>
+					</div>
+	  		 	</div> 
+	  		 	<div class="d-flex">
+	   				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/list?stringFind=}"><button type="button" class="btn btn-light">Usuarios</button></a>
+	   				<a th:href="@{/categoria/list?stringFind=}"><button type="button" class="btn btn-success">Categorías</button></a>
+	   				<a th:href="@{/articulo/list?stringFind=}"><button type="button" class="btn btn-success">Artículos</button></a>
+	   			</div>
+	   			
+	 		 	<div class="d-flex" style="float:right">
+	 		 		<a sec:authorize="hasAuthority('USER')" th:href="@{/carrito}"><button type="button" class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button></a>
+	 		 	</div>
+	 		</div>
+	 	</nav>
 	<form class="form-horizontal" action="#" th:action="@{/usuario/admin}" th:object="${userAdm}" method="POST">
 		<fieldset>
 

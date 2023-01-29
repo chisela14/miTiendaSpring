@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ import com.jacaranda.tienda.service.OrderService;
 import com.jacaranda.tienda.service.UserService;
 
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -34,6 +36,8 @@ public class UserController {
 	FileService fileServ;
 	@Autowired 
 	OrderService orderServ;
+	@Autowired 
+	HttpSession session;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -83,9 +87,9 @@ public class UserController {
 				}
 				userServ.add(u, "http://localhost:8080/usuario");
 			} catch (UnsupportedEncodingException | MessagingException | UserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}//?
+				session.setAttribute("error", e.getMessage());
+				return "error";
+			}
 			return "redirect:/usuario/list";
 		}
 	}
@@ -135,12 +139,21 @@ public class UserController {
 	@GetMapping("usuario/update/password")
 	public String updateUserPassword(Model model, @RequestParam("id") String username) {
 		User user = userServ.get(username);
+		model.addAttribute("password", user.getPassword());
 		model.addAttribute("userPwd", user);
 		return "updateUserPassword";
 	}
 	@PostMapping("usuario/update/password")
-	public String updatePasswordSubmit(@ModelAttribute("userPwd") User user) {
-		userServ.update(user, true);
+	public String updatePasswordSubmit(@ModelAttribute("userPwd") User user,@ModelAttribute("password") String password, @RequestParam("oldPassword") String oldPassword, Model model) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(oldPassword);
+		if(password.equals(encodedPassword)) {
+			userServ.update(user, true);
+		}else {
+			session.setAttribute("error", "La contraseña actual no es correcta");
+			return "redirect:/error";
+		}
+		
 		return "redirect:/articulo/list";
 	}
 	

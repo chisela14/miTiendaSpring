@@ -51,7 +51,12 @@ public class ArticleService {
 	}
 	
 	public Article update(Article a) {
-		return rep.save(a);
+		Article article = get(a.getCode());
+		article.setName(a.getName());
+		article.setDescription(a.getDescription());
+		article.setPrice(a.getPrice());
+		article.setStock(a.getStock());
+		return rep.save(article);
 	}
 
 }

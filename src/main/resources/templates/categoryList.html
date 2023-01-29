@@ -36,8 +36,8 @@
 	  				</a>
 		  		 	<div class="dropdown">
 		  		 		<button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
-			  		 		<!-- <i class="fa-regular fa-user"></i>  -->
 			  		 		<img th:src="${#authentication.principal.img}" width="30">
+			  		 		<i th:unless="${#authentication.principal.img}" class="fa-regular fa-user"></i>
 			  		 		<span th:text=${#authentication.name}></span>
 		  		 		</button>
 						<div class="dropdown-menu">

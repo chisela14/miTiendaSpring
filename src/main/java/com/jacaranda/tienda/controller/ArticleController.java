@@ -30,11 +30,14 @@ public class ArticleController {
 			@RequestParam("sizeNumber") Optional<Integer> sizeNumber,
 			@RequestParam("sortField") Optional<String> sortField,
 			@RequestParam("stringFind") Optional<String> stringFind,
-			@RequestParam("color") Optional<String> colorCode) {
+			@RequestParam(name="color", required=false) String colorCode) {
 		
 		Page<Article> page = serv.getArticles(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null));
-		if(!colorCode.isEmpty()) {
-			page = serv.getArticlesByColor(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null), colorCode.orElse(null));
+		if(colorCode != null ) {
+			if(!colorCode.equals("null")) {
+				page = serv.getArticlesByColor(pageNumber.orElse(1), sizeNumber.orElse(10), sortField.orElse("code"), stringFind.orElse(null), colorCode);
+				model.addAttribute("colorCode", colorCode);
+			}
 		}
 		
 		model.addAttribute("currentPage", pageNumber.orElse(1));
@@ -42,7 +45,7 @@ public class ArticleController {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField.orElse("code"));
 		model.addAttribute("keyword", stringFind.orElse(""));
-		model.addAttribute("colorCode", colorCode.orElse(null));
+		
 	
 		model.addAttribute("flowers", page.getContent());
 		
